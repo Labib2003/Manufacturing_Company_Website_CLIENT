@@ -3,6 +3,8 @@ import Banner from './Banner';
 import BusinessSummary from './BusinessSummary';
 import ContactUs from './ContactUs';
 import CustomerReviews from './CustomerReviews';
+import Map from './Map';
+import NewsLetter from './NewsLetter';
 import Tools from './Tools';
 
 const Home = () => {
@@ -11,8 +13,16 @@ const Home = () => {
             <Banner></Banner>
             <Tools></Tools>
             <BusinessSummary></BusinessSummary>
+            <Map></Map>
             <CustomerReviews></CustomerReviews>
-            <ContactUs></ContactUs>
+            <div id='contact' className='flex justify-around'>
+                <div className='my-auto'>
+                    <ContactUs></ContactUs>
+                </div>
+                <div>
+                    <NewsLetter></NewsLetter>
+                </div>
+            </div>
         </div>
     );
 };

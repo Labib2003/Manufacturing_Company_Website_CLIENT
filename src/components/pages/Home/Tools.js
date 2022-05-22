@@ -1,18 +1,19 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import LoadingSpinner from '../../shared/LoadingSpinner';
 import Tool from './Tool';
 
 const Tools = () => {
     const { isLoading, error, data: tools } = useQuery('tools', () =>
-        fetch('http://localhost:5000/tools').then(res =>
+        fetch('https://tools-manufacturer.herokuapp.com/tools').then(res =>
             res.json()
         )
     )
     if(isLoading){
-        return <p>isLoading</p>
+        return <LoadingSpinner></LoadingSpinner>
     }
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-5 mb-32'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 mb-32'>
             {
                 tools.map(tool => <Tool key={tool._id} tool={tool}></Tool>)
             }

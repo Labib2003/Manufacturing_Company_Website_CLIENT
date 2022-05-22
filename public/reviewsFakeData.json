@@ -1,0 +1,9 @@
+[
+    {
+        "_id": 1,
+        "user": "Labib Amir Salimi",
+        "email": "labib.salimi30@gmail.com",
+        "stars": "5/5",
+        "body": "This is a test review. Testing testing check check!"
+    }
+]

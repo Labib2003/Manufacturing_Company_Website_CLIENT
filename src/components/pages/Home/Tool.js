@@ -10,7 +10,7 @@ const Tool = ({ tool }) => {
             <div class="card-body items-center text-center">
                 <h2 class="card-title text-3xl mb-5">{name}</h2>
                 <div className='text-left text-xl mb-5'>
-                    <p className='mb-3'>{description}</p>
+                    <p className='mb-3 leading-relaxed'>{description}</p>
                     <p className='mb-1'>Minimum Order Quantity: {min_order_quantity}</p>
                     <p className='mb-1'>Available Quantity: {available_quantity}</p>
                     <p className='mb-1'>Price (per unit): ${per_unit_price}</p>

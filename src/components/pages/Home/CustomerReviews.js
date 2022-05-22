@@ -5,7 +5,7 @@ import CustomerReview from './CustomerReview';
 
 const CustomerReviews = () => {
     const { isLoading, error, data: reviews } = useQuery('reviews', () =>
-        fetch('reviewsFakeData.json').then(res =>
+        fetch('https://tools-manufacturer.herokuapp.com/reviews').then(res =>
             res.json()
         )
     );
@@ -15,7 +15,7 @@ const CustomerReviews = () => {
     return (
         <div className='mb-32'>
             <h1 className='text-5xl font-bold text-center'>Customer Reviews</h1>
-            <div className='grid grid-cols-1 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-10'>
                 {
                     reviews.map(review => <CustomerReview key={review._id} review={review}></CustomerReview>)
                 }

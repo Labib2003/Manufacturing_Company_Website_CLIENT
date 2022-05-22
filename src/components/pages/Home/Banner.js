@@ -9,7 +9,7 @@ const Banner = () => {
                 <div className='text-left mr-10'>
                     <h1 class="text-5xl font-bold">IronWorks</h1>
                     <p class="my-10 text-xl leading-relaxed">IronWorks is one of the largest manufacturers of professional hand tools in the south asian region, serving the woodworking, vehicle service and assembly, electronics, construction and DIY markets.</p>
-                    <button class="btn btn-primary">Get Started</button>
+                    <a class="btn btn-primary" href='#tools'>Get Started</a>
                 </div>
             </div>
         </div>

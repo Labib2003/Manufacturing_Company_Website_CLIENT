@@ -12,7 +12,7 @@ const MyOrders = () => {
     const email = user.email;
 
     // react query
-    const { isLoading, error, data: orders } = useQuery('orders', () =>
+    const { isLoading, error, data: orders, refetch } = useQuery('orders', () =>
         fetch(`http://localhost:5000/orders/${email}`, {
             method: 'GET',
             headers: {
@@ -21,13 +21,13 @@ const MyOrders = () => {
         }).then(res =>
             res.json()
         )
-    )
+    );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
-    }
+    };
     if (error) {
         return <FailedToFetch></FailedToFetch>
-    }
+    };
 
     return (
         <div class="overflow-x-auto">
@@ -45,7 +45,7 @@ const MyOrders = () => {
                 </thead>
                 <tbody>
                     {
-                        orders.map((order, index) => <OrdersRow key={order._id} order={order} index={index}></OrdersRow>)
+                        orders.map((order, index) => <OrdersRow key={order._id} order={order} index={index} refetch={refetch}></OrdersRow>)
                     }
                 </tbody>
             </table>

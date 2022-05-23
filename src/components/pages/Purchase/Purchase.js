@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -12,15 +12,14 @@ const Purchase = () => {
 
     const phoneRef = useRef(0);
     const quantityRef = useRef(0);
+    const addressRef = useRef('');
 
     // getting user from firebase
     const [user] = useAuthState(auth);
 
     // react query
     const { isLoading, error, data: tool, refetch } = useQuery('purchaseTool', () =>
-        fetch(`https://tools-manufacturer.herokuapp.com/tools/${id}`).then(res =>
-            res.json()
-        )
+        fetch(`https://tools-manufacturer.herokuapp.com/tools/${id}`).then(res => res.json())
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
@@ -36,11 +35,12 @@ const Purchase = () => {
             per_unit_price: tool.per_unit_price,
             name: tool.name,
             phone: phoneRef.current.value,
+            address: addressRef.current.value,
             quantity: quantityRef.current.value,
             paid: false
         };
         const newQuantity = parseInt(tool.available_quantity) - parseInt(quantityRef.current.value);
-        fetch('http://localhost:5000/order', {
+        fetch('https://tools-manufacturer.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -49,7 +49,7 @@ const Purchase = () => {
         })
             .then(res => res.json())
             .then(data => console.log(data));
-        fetch(`http://localhost:5000/tools/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/tools/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -106,6 +106,18 @@ const Purchase = () => {
                                     type="number"
                                     ref={phoneRef}
                                     placeholder='Your phone number'
+                                    className="input input-bordered"
+                                    required
+                                />
+                            </div>
+                            <div className="form-control mb-5">
+                                <label className="label">
+                                    <span className="label-text">Address</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    ref={addressRef}
+                                    placeholder='Delivery address'
                                     className="input input-bordered"
                                     required
                                 />

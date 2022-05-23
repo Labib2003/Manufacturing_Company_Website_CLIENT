@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import useToken from '../../../hooks/useToken';
+import LoadingSpinner from '../../shared/LoadingSpinner';
 
 const Register = () => {
     // react firebase hooks
@@ -17,12 +19,26 @@ const Register = () => {
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
+        console.log('name updated');
     };
 
     // error handling
-    if (error || googleError){
+    if (error || googleError) {
         errorMessage = `${error ? error?.message : ''} ${googleError ? googleError?.message : ''}`;
-    }
+    };
+
+    // getting jwt
+    const [token] = useToken(user || googleUser);
+
+    // navigate to previous page
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+        };
+    }, [token, from, navigate]);
 
     return (
         <div className='flex justify-center mb-32'>
@@ -36,7 +52,7 @@ const Register = () => {
                             </label>
                             <input
                                 type="text"
-                                placeholder="UserName"
+                                placeholder="Username"
                                 className="input input-bordered w-full max-w-xs"
                                 {...register("name", {
                                     required: {

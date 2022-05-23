@@ -3,10 +3,8 @@ import { useEffect, useState } from "react"
 const useToken = (user) => {
     const [token, setToken] = useState('');
     const email = user?.user?.email;
-    const name = user?.user?.displayName;
     const currentUser = {
         email: email,
-        name: name
     }
     useEffect(() => {
         if (user) {

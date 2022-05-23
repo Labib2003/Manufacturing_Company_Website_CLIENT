@@ -1,15 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+
+import auth from '../../../firebase.init';
 
 const Login = () => {
+    // react firebase hooks
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+
+    // react hook form
     const { register, formState: { errors }, handleSubmit } = useForm();
-    let signInError;
-    const onSubmit = data => {
-        // signInWithEmailAndPassword(data.email, data.password);
+    let errorMessage;
+    const onSubmit = (data) => {
+        errorMessage = '';
+        signInWithEmailAndPassword(data.email, data.password);
     }
+
+    // error handling
+    if (error || googleError){
+        errorMessage = `${error ? error?.message : ''} ${googleError ? googleError?.message : ''}`;
+    }
+
     return (
-        <div className='flex justify-center'>
+        <div className='flex justify-center mb-32'>
             <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
                     <h2 className="text-center text-2xl font-bold">Login</h2>
@@ -62,14 +77,13 @@ const Login = () => {
                                 {errors.password?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
                             </label>
                         </div>
-
-                        {signInError}
+                        <p className='mb-5 text-red-500'>{errorMessage}</p>
                         <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
                     </form>
                     <p><small>New to our site? <Link className='text-accent' to="/register">Create New Account</Link></small></p>
                     <div className="divider">OR</div>
                     <button
-                        //onClick={() => signInWithGoogle()}
+                        onClick={() => signInWithGoogle()}
                         className="btn btn-outline"
                     >Continue with Google</button>
                 </div>

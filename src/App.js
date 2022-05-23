@@ -3,8 +3,10 @@ import './App.css';
 import Home from './components/pages/Home/Home';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Login/Register';
+import Purchase from './components/pages/Purchase/Purchase';
 import Footer from './components/shared/Footer';
 import Navbar from './components/shared/Navbar';
+import RequiteAuth from './components/shared/RequiteAuth';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
+        <Route path='/tools/:id' element={<RequiteAuth><Purchase></Purchase></RequiteAuth>}></Route>
       </Routes>
       <Footer></Footer>
     </div>

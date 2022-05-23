@@ -98,7 +98,7 @@ const Register = () => {
                             </label>
                         </div>
                         <p className='mb-5 text-red-500'>{errorMessage}</p>
-                        <input className='btn w-full max-w-xs text-white' type="submit" value="Sign Up" />
+                        <input className='btn btn-accent w-full max-w-xs text-white' type="submit" value="Sign Up" />
                     </form>
                     <p><small>Already have an account? <Link className='text-accent' to="/login">Log In</Link></small></p>
                     <div className="divider">OR</div>

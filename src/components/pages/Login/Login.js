@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import auth from '../../../firebase.init';
 
@@ -13,13 +13,13 @@ const Login = () => {
     // react hook form
     const { register, formState: { errors }, handleSubmit } = useForm();
     let errorMessage;
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         errorMessage = '';
-        signInWithEmailAndPassword(data.email, data.password);
+        await signInWithEmailAndPassword(data.email, data.password);
     }
 
     // error handling
-    if (error || googleError){
+    if (error || googleError) {
         errorMessage = `${error ? error?.message : ''} ${googleError ? googleError?.message : ''}`;
     }
 
@@ -78,7 +78,7 @@ const Login = () => {
                             </label>
                         </div>
                         <p className='mb-5 text-red-500'>{errorMessage}</p>
-                        <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
+                        <input className='btn btn-accent w-full max-w-xs text-white' type="submit" value="Login" />
                     </form>
                     <p><small>New to our site? <Link className='text-accent' to="/register">Create New Account</Link></small></p>
                     <div className="divider">OR</div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ const Purchase = () => {
 
     // react query
     const { isLoading, error, data: tool } = useQuery('purchaseTool', () =>
-        fetch(`http://localhost:5000/tools/${id}`).then(res =>
+        fetch(`https://tools-manufacturer.herokuapp.com/tools/${id}`).then(res =>
             res.json()
         )
     );
@@ -27,73 +27,81 @@ const Purchase = () => {
     };
 
     return (
-        <div className='flex justify-center mb-32'>
-            <div className="card w-96 bg-base-100 shadow-xl">
-                <div className="card-body">
-                    <h2 className="text-center text-2xl font-bold">You are purchasing <span className='font-bold'>{tool.name}</span></h2>
-                    <form autoComplete="off">
-                        <div className="form-control w-full max-w-xs">
-                            <label className="label">
-                                <span className="label-text">Name</span>
-                            </label>
-                            <input
-                                type="text"
-                                value={user.displayName}
-                                className="input input-bordered w-full max-w-xs"
-                                readOnly
-                            />
-                        </div>
-                        <div className="form-control w-full max-w-xs mb-5">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input
-                                type="email"
-                                value={user.email}
-                                className="input input-bordered w-full max-w-xs"
-                                readOnly
-                            />
-                        </div>
-                        <div className="form-control w-full max-w-xs mb-5">
-                            <label className="label">
-                                <span className="label-text">Address</span>
-                            </label>
-                            <input
-                                type="text"
-                                placeholder='Your address'
-                                className="input input-bordered w-full max-w-xs"
-                                required
-                            />
-                        </div>
-                        <div className="form-control w-full max-w-xs mb-5">
-                            <label className="label">
-                                <span className="label-text">Phone</span>
-                            </label>
-                            <input
-                                type="number"
-                                placeholder='Your phone number'
-                                className="input input-bordered w-full max-w-xs"
-                                required
-                            />
-                        </div>
-                        <div className="form-control w-full max-w-xs mb-5">
-                            <label className="label">
-                                <span className="label-text">Quantity</span>
-                            </label>
-                            <input
-                                type="number"
-                                placeholder={parseInt(tool.min_order_quantity)}
-                                min={parseInt(tool.min_order_quantity)}
-                                max={parseInt(tool.available_quantity)}
-                                className="input input-bordered w-full max-w-xs"
-                                required
-                            />
-                        </div>
-                        <input className='btn btn-accent w-full max-w-xs text-white' type="submit" value="Login" />
-                    </form>
+        <div class="hero mb-32">
+            <div class="hero-content flex-col lg:flex-row">
+                <div class="text-center md:text-left mr-10">
+                    <h1 class="text-5xl font-semibold leading-normal mb-5">You are purchasing: <span className='font-bold'>{tool.name}</span></h1>
+                    <p class="py-5 text-2xl">Per Unit Price: ${tool.per_unit_price}</p>
+                    <p class="py-5 text-2xl">Minimum Order Quantity: {tool.min_order_quantity}</p>
+                    <p class="py-5 text-2xl">Available Quantity: {tool.available_quantity}</p>
+                </div>
+                <div class="card flex-shrink-0 w-1/2 shadow-2xl bg-base-100">
+                    <div class="card-body">
+                        <h1 className="card-title">Please fill up this form to continue.</h1>
+                        <form className="w-full" autoComplete="off">
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={user.displayName}
+                                    className="input input-bordered"
+                                    readOnly
+                                />
+                            </div>
+                            <div className="form-control mb-5">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    value={user.email}
+                                    className="input input-bordered"
+                                    readOnly
+                                />
+                            </div>
+                            <div className="form-control mb-5">
+                                <label className="label">
+                                    <span className="label-text">Address</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder='Your address'
+                                    className="input input-bordered"
+                                    required
+                                />
+                            </div>
+                            <div className="form-control mb-5">
+                                <label className="label">
+                                    <span className="label-text">Phone</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    placeholder='Your phone number'
+                                    className="input input-bordered"
+                                    required
+                                />
+                            </div>
+                            <div className="form-control mb-5">
+                                <label className="label">
+                                    <span className="label-text">Quantity</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    placeholder={parseInt(tool.min_order_quantity)}
+                                    min={parseInt(tool.min_order_quantity)}
+                                    max={parseInt(tool.available_quantity)}
+                                    className="input input-bordered w-full"
+                                    required
+                                />
+                            </div>
+                            <input className='btn btn-accent w-full text-white' type="submit" value="Login" />
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 

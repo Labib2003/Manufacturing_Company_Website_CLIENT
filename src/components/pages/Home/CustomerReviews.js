@@ -6,14 +6,19 @@ import CustomerReview from './CustomerReview';
 
 const CustomerReviews = () => {
     const { isLoading, error, data: reviews } = useQuery('reviews', () =>
-        fetch('https://tools-manufacturer.herokuapp.com/reviews').then(res =>
+        fetch('https://tools-manufacturer.herokuapp.com/reviews', {
+            method: 'GET',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res =>
             res.json()
         )
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
-    if (error){
+    if (error) {
         return <FailedToFetch></FailedToFetch>
     }
     return (

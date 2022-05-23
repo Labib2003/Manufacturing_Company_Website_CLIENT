@@ -20,7 +20,10 @@ const Navbar = () => {
                 <li><a>Submenu 2</a></li>
             </ul>
         </li>
-        <li>{user ? <button onClick={() => signOut(auth)}>Log Out</button> : <Link to='/login'>Login</Link>}</li>
+        <li>{user ? <button onClick={() => {
+            signOut(auth);
+            localStorage.removeItem('accessToken');
+        }}>Log Out</button> : <Link to='/login'>Login</Link>}</li>
     </>
     return (
         <div className="navbar bg-base-100 mb-32">

@@ -11,8 +11,8 @@ const Map = () => {
     return (
         <div className='mb-32'>
             <h1 className='text-5xl font-bold text-center'>Our Locations</h1>
-            <div class="divider"></div>
-            <p className='text-xl text-center mb-5'>Besides these regional offices, we have many reliable dealers all across south Asia to conduct our business.</p>
+            <div className="divider"></div>
+            <p className='text-xl text-center mb-5'>Besides these regional offices, we have many reliable dealers all across South Asia to conduct our business.</p>
             <MapContainer id='map' className='h-96' center={dhaka} zoom={5} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -44,7 +44,7 @@ const Map = () => {
                     </Popup>
                 </Marker>
             </MapContainer>
-            <div class="divider"></div>
+            <div className="divider"></div>
         </div>
     );
 };

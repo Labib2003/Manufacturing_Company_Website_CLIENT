@@ -15,11 +15,11 @@ const Home = () => {
             <BusinessSummary></BusinessSummary>
             <Map></Map>
             <CustomerReviews></CustomerReviews>
-            <div id='contact' className='flex justify-around'>
+            <div id='contact' className='flex flex-col md:flex-row md:justify-around'>
                 <div className='my-auto'>
-                    <ContactUs></ContactUs>
+                    <ContactUs></ContactUs> 
                 </div>
-                <div>
+                <div className=''>
                     <NewsLetter></NewsLetter>
                 </div>
             </div>

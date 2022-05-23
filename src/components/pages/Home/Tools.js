@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import Tool from './Tool';
 
@@ -11,6 +12,9 @@ const Tools = () => {
     )
     if(isLoading){
         return <LoadingSpinner></LoadingSpinner>
+    }
+    if (error){
+        return <FailedToFetch></FailedToFetch>
     }
     return (
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 mb-32'>

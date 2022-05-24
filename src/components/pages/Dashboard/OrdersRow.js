@@ -1,14 +1,8 @@
 import React from 'react';
 
-const OrdersRow = ({ order, index, refetch }) => {
-    const { name, quantity, per_unit_price, paid, _id } = order;
+const OrdersRow = ({ order, index, setOrder }) => {
+    const { name, quantity, per_unit_price, paid } = order;
     const totalPrice = parseInt(quantity) * parseInt(per_unit_price);
-
-    const handleDelete = (id) => {
-        fetch(`http://localhost:5000/orders/${id}`, {
-            method: 'DELETE',
-        }).then(res => refetch());
-    };
 
     return (
         <tr className='text-xl'>
@@ -18,8 +12,13 @@ const OrdersRow = ({ order, index, refetch }) => {
             <td>${totalPrice}</td>
             <td>{paid ? 'Paid' : 'Pending'}</td>
             <td>{paid ? 'Your order will be delivered soon' : <div className='flex'>
-                <button className="btn btn-primary mr-3">Pay</button>
-                <button onClick={() => handleDelete(_id)} className="btn btn-warning">Delete</button>
+                <button className="btn btn-success mr-3">Pay</button>
+                <label
+                    for="deleteModal"
+                    class="btn modal-button btn-error"
+                    onClick={() => setOrder(order)}
+                >Cancel</label>
+                {/* <button onClick={() => handleDelete(_id)} className="">Cancel Order</button> */}
             </div>}</td>
         </tr>
     );

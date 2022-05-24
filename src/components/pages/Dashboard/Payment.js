@@ -29,7 +29,7 @@ const Payment = () => {
     };
     return (
         <div>
-            <div class="card bg-base-100 shadow-xl mb-10">
+            <div class="card shadow-xl mb-10">
                 <div class="card-body">
                     <p className='text-3xl font-bold mb-5'>Please pay for your {order.name} order</p>
                     <p className='text-xl mb-3'>Order Quantity: {order.quantity}</p>

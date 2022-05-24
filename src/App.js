@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import AddReview from './components/pages/Dashboard/AddReview';
 import Dashboard from './components/pages/Dashboard/Dashboard';
+import ManageAllOrders from './components/pages/Dashboard/ManageAllOrders';
 import MyOrders from './components/pages/Dashboard/MyOrders';
 import MyProfile from './components/pages/Dashboard/MyProfile';
 import Payment from './components/pages/Dashboard/Payment';
@@ -12,6 +13,7 @@ import Purchase from './components/pages/Purchase/Purchase';
 import Footer from './components/shared/Footer';
 import Navbar from './components/shared/Navbar';
 import RequiteAuth from './components/shared/RequiteAuth';
+import RequireAdmin from './hooks/RequireAdmin';
 
 function App() {
   return (
@@ -24,10 +26,11 @@ function App() {
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='/tools/:id' element={<RequiteAuth><Purchase></Purchase></RequiteAuth>}></Route>
         <Route path='/dashboard' element={<RequiteAuth><Dashboard></Dashboard></RequiteAuth>}>
-          <Route index element={<MyOrders></MyOrders>}></Route>
+          <Route index element={<MyProfile></MyProfile>}></Route>
           <Route path='payment/:id' element={<Payment></Payment>}></Route>
           <Route path='addReview' element={<AddReview></AddReview>}></Route>
-          <Route path='myProfile' element={<MyProfile></MyProfile>}></Route>
+          <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
+          <Route path='manageAllOrders' element={<RequireAdmin><ManageAllOrders></ManageAllOrders></RequireAdmin>}></Route>
         </Route>
       </Routes>
       <Footer></Footer>

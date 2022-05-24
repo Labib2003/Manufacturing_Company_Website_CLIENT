@@ -11,7 +11,7 @@ const OrdersRow = ({ order, index, setOrder }) => {
             <td>{quantity}</td>
             <td>${totalPrice}</td>
             <td>{transactionId ? 'Paid' : 'Pending'}</td>
-            <td>{transactionId ? `TransactionId: ${transactionId}` : <div className='grid grid-cols-2 gap-5 place-content-center'>
+            <td className='w-1/3'>{transactionId ? `TransactionId: ${transactionId}` : <div className='grid grid-cols-2 gap-5 place-content-center'>
                 <Link to={`/dashboard/payment/${_id}`} className="btn btn-success">Pay</Link>
                 <label
                     for="deleteModal"

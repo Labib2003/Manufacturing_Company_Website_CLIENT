@@ -3,6 +3,7 @@ import './App.css';
 import AddReview from './components/pages/Dashboard/AddReview';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import MyOrders from './components/pages/Dashboard/MyOrders';
+import MyProfile from './components/pages/Dashboard/MyProfile';
 import Payment from './components/pages/Dashboard/Payment';
 import Home from './components/pages/Home/Home';
 import Login from './components/pages/Login/Login';
@@ -26,6 +27,7 @@ function App() {
           <Route index element={<MyOrders></MyOrders>}></Route>
           <Route path='payment/:id' element={<Payment></Payment>}></Route>
           <Route path='addReview' element={<AddReview></AddReview>}></Route>
+          <Route path='myProfile' element={<MyProfile></MyProfile>}></Route>
         </Route>
       </Routes>
       <Footer></Footer>

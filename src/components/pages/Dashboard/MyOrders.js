@@ -16,7 +16,7 @@ const MyOrders = () => {
 
     // react query
     const { isLoading, error, data: orders, refetch } = useQuery('orders', () =>
-        fetch(`http://localhost:5000/orders/${email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/orders/${email}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -43,7 +43,7 @@ const MyOrders = () => {
                         <th>Quantity</th>
                         <th>Total Price</th>
                         <th>Payment Status</th>
-                        <th className='text-center'>Actions</th>
+                        <th className='text-center'>Payment</th>
                     </tr>
                 </thead>
                 <tbody>

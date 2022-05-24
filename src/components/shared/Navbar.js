@@ -9,7 +9,7 @@ const Navbar = () => {
     const [user] = useAuthState(auth);
 
     const navElements = <>
-        <li><a>Item 1</a></li>
+        <li><Link to='/dashboard'>Dashboard</Link></li>
         <li tabIndex="0">
             <a className="justify-between" >
                 Parent

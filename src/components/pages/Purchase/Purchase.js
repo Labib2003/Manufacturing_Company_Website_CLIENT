@@ -37,13 +37,15 @@ const Purchase = () => {
             phone: phoneRef.current.value,
             address: addressRef.current.value,
             quantity: quantityRef.current.value,
-            paid: false
+            paid: false,
+            transactionId: ''
         };
         const newQuantity = parseInt(tool.available_quantity) - parseInt(quantityRef.current.value);
         fetch('https://tools-manufacturer.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(order)
         })

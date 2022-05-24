@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import MyOrders from './components/pages/Dashboard/MyOrders';
+import Payment from './components/pages/Dashboard/Payment';
 import Home from './components/pages/Home/Home';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Login/Register';
@@ -22,6 +23,7 @@ function App() {
         <Route path='/tools/:id' element={<RequiteAuth><Purchase></Purchase></RequiteAuth>}></Route>
         <Route path='/dashboard' element={<RequiteAuth><Dashboard></Dashboard></RequiteAuth>}>
           <Route index element={<MyOrders></MyOrders>}></Route>
+          <Route path='payment/:id' element={<Payment></Payment>}></Route>
         </Route>
       </Routes>
       <Footer></Footer>

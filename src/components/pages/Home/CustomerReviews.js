@@ -17,10 +17,10 @@ const CustomerReviews = () => {
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
-    }
+    };
     if (error) {
         return <FailedToFetch></FailedToFetch>
-    }
+    };
     return (
         <div className='mb-32'>
             <h1 className='text-5xl font-bold text-center mb-10'>Customer Reviews</h1>

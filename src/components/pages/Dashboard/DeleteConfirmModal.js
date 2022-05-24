@@ -5,8 +5,11 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
 
     const handleDelete = (id) => {
         setOrder(null);
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/orders/${id}`, {
             method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
         }).then(res => refetch());
     };
 

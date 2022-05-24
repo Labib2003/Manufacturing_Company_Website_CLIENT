@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
+import ConfirmDeleteProductModal from './ConfirmDeleteProductModal';
 import ProductRow from './ProductRow';
 
 const ManageProducts = () => {
+    const [product, setProduct] = useState({});
+
     const { isLoading, error, data: products, refetch } = useQuery('products', () =>
         fetch('https://tools-manufacturer.herokuapp.com/tools').then(res =>
             res.json()
@@ -36,11 +39,13 @@ const ManageProducts = () => {
                                 key={product._id}
                                 product={product}
                                 index={index}
-                                refetch={refetch}
+                                
+                                setProduct={setProduct}
                             ></ProductRow>)
                         }
                     </tbody>
                 </table>
+                {product && <ConfirmDeleteProductModal product={product} setProduct={setProduct} refetch={refetch}></ConfirmDeleteProductModal>}
             </div>
         </div>
     );

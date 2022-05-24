@@ -24,32 +24,32 @@ const ManageAllOrders = () => {
     return (
         <div>
             <div className='card shadow-xl'>
-            <div class="overflow-x-auto card-body">
-                <h1 className='text-3xl font-bold mb-10'>Your orders</h1>
-                <table class="table table-zebra w-full">
-                    <thead>
-                        <tr className='text-left text-xl font-bold'>
-                            <th></th>
-                            <th>Name</th>
-                            <th>CLient</th>
-                            <th>Quantity</th>
-                            <th>Payment Status</th>
-                            <th className='text-center'>Shipping</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            allOrders.map((order, index) => <AllOrdersRow
-                                key={order._id}
-                                order={order}
-                                index={index}
-                                refetch={refetch}
-                            ></AllOrdersRow>)
-                        }
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto card-body">
+                    <h1 className='text-3xl font-bold mb-10'>Your orders</h1>
+                    <table class="table table-zebra w-full">
+                        <thead>
+                            <tr className='text-left text-xl font-bold'>
+                                <th></th>
+                                <th>Name</th>
+                                <th>CLient</th>
+                                <th>Quantity</th>
+                                <th>Payment Status</th>
+                                <th className='text-center'>Shipping</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                allOrders.map((order, index) => <AllOrdersRow
+                                    key={order._id}
+                                    order={order}
+                                    index={index}
+                                    refetch={refetch}
+                                ></AllOrdersRow>)
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
         </div>
     );
 };

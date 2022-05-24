@@ -1,6 +1,11 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const AllOrdersRow = ({ order, index, refetch }) => {
+    const navigate = useNavigate();
+
     const { _id, name, email, quantity, paid, shipped } = order;
 
     const handleShipping = (id) => {
@@ -11,7 +16,15 @@ const AllOrdersRow = ({ order, index, refetch }) => {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem('accessToken');
+                    navigate('/login');
+                }
+                return res.json()
+            }
+            )
             .then(data => refetch())
     }
 

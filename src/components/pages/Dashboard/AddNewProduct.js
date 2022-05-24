@@ -1,6 +1,13 @@
+import { signOut } from 'firebase/auth';
 import React, { useRef, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const AddNewProduct = () => {
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate();
+
     const [image, setImage] = useState(null);
 
     const nameRef = useRef('');
@@ -13,7 +20,6 @@ const AddNewProduct = () => {
 
     const handleAddNewProduct = (event) => {
         event.preventDefault();
-
         const formData = new FormData();
         formData.append('image', image);
         fetch(`https://api.imgbb.com/1/upload?key=${imageUploadKey}`, {
@@ -33,7 +39,7 @@ const AddNewProduct = () => {
                         available_quantity: availableRef.current.value,
                         per_unit_price: priceRef.current.value
                     }
-                    fetch('http://localhost:5000/tools', {
+                    fetch(`http://localhost:5000/tools`, {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json; charset=UTF-8',
@@ -41,7 +47,15 @@ const AddNewProduct = () => {
                         },
                         body: JSON.stringify(newProduct)
                     })
-                        .then(res => res.json())
+                        .then(res => {
+                            if (res.status === 401 || res.status === 403) {
+                                signOut(auth);
+                                localStorage.removeItem('accessToken');
+                                navigate('/login');
+                            }
+                            return res.json()
+                        }
+                        )
                         .then(data => console.log(data));
                 }
             });

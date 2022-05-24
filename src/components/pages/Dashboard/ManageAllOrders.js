@@ -1,18 +1,28 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import AllOrdersRow from './AllOrdersRow';
 
 const ManageAllOrders = () => {
+    const navigate = useNavigate();
     const { isLoading, error, data: allOrders, refetch } = useQuery('allOrders', () =>
         fetch('http://localhost:5000/orders', {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res =>
-            res.json()
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth);
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            }
+            return res.json()
+        }
         )
     );
     if (isLoading) {

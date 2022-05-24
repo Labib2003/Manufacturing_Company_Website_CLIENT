@@ -1,6 +1,10 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const UserRow = ({ user, index, refetch }) => {
+    const navigate = useNavigate();
     const makeAdmin = (email) => {
         fetch(`http://localhost:5000/users/admin/${email}`, {
             method: 'PUT',
@@ -10,7 +14,15 @@ const UserRow = ({ user, index, refetch }) => {
             },
             body: JSON.stringify({ user: email })
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem('accessToken');
+                    navigate('/login');
+                }
+                return res.json()
+            }
+            )
             .then(data => refetch())
     }
     return (

@@ -1,6 +1,8 @@
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
@@ -11,6 +13,7 @@ const MyOrders = () => {
     // user info
     const [user] = useAuthState(auth);
     const email = user.email;
+    const navigate = useNavigate();
 
     const [order, setOrder] = useState({});
 
@@ -21,8 +24,14 @@ const MyOrders = () => {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res =>
-            res.json()
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth);
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            }
+            return res.json()
+        }
         )
     );
     if (isLoading) {

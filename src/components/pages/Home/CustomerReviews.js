@@ -8,9 +8,6 @@ const CustomerReviews = () => {
     const { isLoading, error, data: reviews } = useQuery('reviews', () =>
         fetch('https://tools-manufacturer.herokuapp.com/reviews', {
             method: 'GET',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            }
         }).then(res =>
             res.json()
         )

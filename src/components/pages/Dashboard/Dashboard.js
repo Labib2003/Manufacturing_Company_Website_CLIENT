@@ -1,13 +1,15 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
 const Dashboard = () => {
     const [user] = useAuthState(auth);
+    const navigate = useNavigate();
 
     const { isLoading, error, data: userFromDb } = useQuery('userFromDb', () =>
         fetch(`http://localhost:5000/users/${user.email}`, {
@@ -15,8 +17,14 @@ const Dashboard = () => {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res =>
-            res.json()
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth);
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            }
+            return res.json();
+        }
         )
     );
     if (isLoading) {

@@ -1,7 +1,11 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
     const { _id, name } = product;
+    const navigate = useNavigate();
 
     const handleDelete = (id) => {
         setProduct(null);
@@ -10,7 +14,16 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res => refetch());
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth);
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            }
+            refetch();
+            return res.json();
+        }
+        )
     }
 
     return (

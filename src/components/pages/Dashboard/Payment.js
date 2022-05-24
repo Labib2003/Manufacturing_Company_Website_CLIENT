@@ -1,8 +1,10 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import auth from '../../../firebase.init';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import CheckoutForm from './CheckoutForm';
@@ -10,6 +12,7 @@ import CheckoutForm from './CheckoutForm';
 const stripePromise = loadStripe('pk_test_51L0hSZCsqEIAHtmewln439tN1kcj7zFfi8DLN9NpThjN9dTLGGeheAj6yNaOGpBbodw14i2XgAYPQuVCsxVUQSIS007hYq6fD4');
 
 const Payment = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const { isLoading, error, data: order } = useQuery(['payment', id], () =>
         fetch(`https://tools-manufacturer.herokuapp.com/order/${id}`, {
@@ -17,8 +20,14 @@ const Payment = () => {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res =>
-            res.json()
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth);
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            }
+            return res.json()
+        }
         )
     );
     if (isLoading) {

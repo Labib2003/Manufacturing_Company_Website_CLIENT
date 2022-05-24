@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { useQuery } from 'react-query';
 import LoadingSpinner from '../components/shared/LoadingSpinner';
@@ -9,15 +9,22 @@ import auth from '../firebase.init';
 
 const RequireAdmin = ({ children }) => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [user, loading] = useAuthState(auth);
     const { isLoading, error, data: userFromDb } = useQuery('userFromDb', () =>
-    fetch(`http://localhost:5000/users/${user.email}`, {
-        method: 'GET',
-        headers: {
+        fetch(`http://localhost:5000/users/${user.email}`, {
+            method: 'GET',
+            headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
-        }).then(res =>
-            res.json()
+        }).then(res => {
+            if (res.status === 401 || res.status === 403) {
+                signOut(auth);
+                localStorage.removeItem('accessToken');
+                navigate('/login');
+            }
+            return res.json()
+        }
         )
     );
     if (loading || isLoading) {

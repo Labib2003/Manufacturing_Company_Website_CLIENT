@@ -1,9 +1,13 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const CheckoutForm = ({ order }) => {
     const stripe = useStripe();
     const elements = useElements();
+    const navigate = useNavigate();
 
     const { quantity, per_unit_price, email, _id } = order;
     const price = quantity * per_unit_price;
@@ -23,13 +27,21 @@ const CheckoutForm = ({ order }) => {
             },
             body: JSON.stringify({ price: price })
         })
-            .then(res => res.json())
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    signOut(auth);
+                    localStorage.removeItem('accessToken');
+                    navigate('/login');
+                }
+                return res.json()
+            }
+            )
             .then(data => {
                 if (data.clientSecret) {
                     setClientSecret(data.clientSecret);
                 }
             })
-    }, [price]);
+    }, [price, navigate]);
 
     const handleSubmit = async (event) => {
         // Block native form submission.
@@ -76,10 +88,10 @@ const CheckoutForm = ({ order }) => {
             },
         );
 
-        if(intentError){
+        if (intentError) {
             setStripeError(intentError?.message);
         }
-        else{
+        else {
             setStripeError('');
             setSuccess("Payment successful!");
             setTransactionID(paymentIntent.id);
@@ -89,9 +101,17 @@ const CheckoutForm = ({ order }) => {
                     'Content-type': 'application/json; charset=UTF-8',
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 },
-                body: JSON.stringify({transactionId: paymentIntent.id})
+                body: JSON.stringify({ transactionId: paymentIntent.id })
             })
-                .then(res => res.json())
+                .then(res => {
+                    if (res.status === 401 || res.status === 403) {
+                        signOut(auth);
+                        localStorage.removeItem('accessToken');
+                        navigate('/login');
+                    }
+                    return res.json()
+                }
+                )
                 .then(data => console.log(data))
         }
     };

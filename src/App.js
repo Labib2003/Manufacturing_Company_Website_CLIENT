@@ -3,7 +3,9 @@ import './App.css';
 import AddNewProduct from './components/pages/Dashboard/AddNewProduct';
 import AddReview from './components/pages/Dashboard/AddReview';
 import Dashboard from './components/pages/Dashboard/Dashboard';
+import MakeAdmin from './components/pages/Dashboard/MakeAdmin';
 import ManageAllOrders from './components/pages/Dashboard/ManageAllOrders';
+import ManageProducts from './components/pages/Dashboard/ManageProducts';
 import MyOrders from './components/pages/Dashboard/MyOrders';
 import MyProfile from './components/pages/Dashboard/MyProfile';
 import Payment from './components/pages/Dashboard/Payment';
@@ -33,6 +35,8 @@ function App() {
           <Route path='myOrders' element={<MyOrders></MyOrders>}></Route>
           <Route path='manageAllOrders' element={<RequireAdmin><ManageAllOrders></ManageAllOrders></RequireAdmin>}></Route>
           <Route path='addNewProduct' element={<RequireAdmin><AddNewProduct></AddNewProduct></RequireAdmin>}></Route>
+          <Route path='makeAdmin' element={<RequireAdmin><MakeAdmin></MakeAdmin></RequireAdmin>}></Route>
+          <Route path='manageProducts' element={<RequireAdmin><ManageProducts></ManageProducts></RequireAdmin>}></Route>
         </Route>
       </Routes>
       <Footer></Footer>

@@ -1,12 +1,12 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
+import auth from '../../../../firebase.init';
 
 const UserRow = ({ user, index, refetch }) => {
     const navigate = useNavigate();
     const makeAdmin = (email) => {
-        fetch(`http://localhost:5000/users/admin/${email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

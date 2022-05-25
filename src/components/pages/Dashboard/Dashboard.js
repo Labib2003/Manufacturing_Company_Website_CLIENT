@@ -12,7 +12,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const { isLoading, error, data: userFromDb } = useQuery('userFromDb', () =>
-        fetch(`http://localhost:5000/users/${user.email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/${user.email}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -35,15 +35,15 @@ const Dashboard = () => {
     };
     return (
         <div>
-            <div class="drawer drawer-mobile">
-                <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content flex flex-col">
-                    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+            <div className="drawer drawer-mobile">
+                <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+                <div className="drawer-content flex flex-col">
+                    <label htmlFor="my-drawer-2" className="btn btn-secondary drawer-button lg:hidden">Open drawer</label>
                     <Outlet></Outlet>
                 </div>
-                <div class="drawer-side">
-                    <label for="my-drawer-2" class="drawer-overlay"></label>
-                    <ul class="menu p-4 overflow-y-auto w-80 text-base-content">
+                <div className="drawer-side">
+                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                    <ul className="menu p-4 overflow-y-auto w-80 text-base-content">
                         {
                             userFromDb.admin
                                 ?

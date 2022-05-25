@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
+import auth from '../../../../firebase.init';
 
 const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
     const { _id, name } = product;
@@ -9,7 +9,7 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
 
     const handleDelete = (id) => {
         setProduct(null);
-        fetch(`http://localhost:5000/tool/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -28,13 +28,13 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
 
     return (
         <div>
-            <input type="checkbox" id="delete-product" class="modal-toggle" />
-            <div class="modal">
-                <div class="modal-box relative">
-                    <h3 class="text-lg font-bold mb-10">Are you sure you want to delete {name}?</h3>
+            <input type="checkbox" id="delete-product" className="modal-toggle" />
+            <div className="modal">
+                <div className="modal-box relative">
+                    <h3 className="text-lg font-bold mb-10">Are you sure you want to delete {name}?</h3>
                     <div className='flex justify-around'>
                         <button className='btn btn-error' onClick={() => handleDelete(_id)}>Delete</button>
-                        <label for="delete-product" class="btn btn-success">No</label>
+                        <label htmlFor="delete-product" className="btn btn-success">No</label>
                     </div>
                 </div>
             </div>

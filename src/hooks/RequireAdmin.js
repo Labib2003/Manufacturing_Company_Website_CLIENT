@@ -12,7 +12,7 @@ const RequireAdmin = ({ children }) => {
     const navigate = useNavigate();
     const [user, loading] = useAuthState(auth);
     const { isLoading, error, data: userFromDb } = useQuery('userFromDb', () =>
-        fetch(`http://localhost:5000/users/${user.email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/${user.email}`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

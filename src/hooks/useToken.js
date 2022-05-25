@@ -8,7 +8,7 @@ const useToken = (user) => {
     }
     useEffect(() => {
         if (user) {
-            fetch(`https://tools-manufacturer.herokuapp.com/users/${email}`, {
+            fetch(`https://tools-manufacturer.herokuapp.com/user/${email}`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",

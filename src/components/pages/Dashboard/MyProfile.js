@@ -19,7 +19,7 @@ const MyProfile = () => {
             address: addressRef.current.value
         }
 
-        fetch(`http://localhost:5000/users/${user.email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/${user.email}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -42,54 +42,54 @@ const MyProfile = () => {
     }
 
     return (
-        <div className='card shadow-xl'>
+        <div className='card shadow-xl bg-base-200'>
             <form onSubmit={handleUpdateProfile} className='card-body'>
                 <h1 className='text-3xl font-bold'>Your Profile</h1>
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text">Name</span>
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Name</span>
                     </label>
                     <input
                         type="text"
                         value={user.displayName}
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                         readOnly
                     />
                 </div>
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text">Email</span>
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Email</span>
                     </label>
                     <input
                         type="text"
                         value={user.email}
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                         readOnly
                     />
                 </div>
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text">Phone Number (optional)</span>
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Phone Number (optional)</span>
                     </label>
                     <input
                         type="number"
                         ref={phoneRef}
                         placeholder="Enter your number here."
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                     />
                 </div>
-                <div class="">
-                    <label class="label">
-                        <span class="label-text">Address (optional)</span>
+                <div className="">
+                    <label className="label">
+                        <span className="label-text">Address (optional)</span>
                     </label>
                     <input
                         type="text"
                         ref={addressRef}
                         placeholder="Enter your address here."
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                     />
                 </div>
-                <input type="submit" className='btn btn-success mt-5 w-full max-w-xs mx-auto' value='update profile' />
+                <input type="submit" className='btn btn-secondary mt-5 w-full max-w-xs mx-auto' value='update profile' />
             </form>
         </div>
     );

@@ -2,15 +2,15 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
-import FailedToFetch from '../../shared/FailedToFetch';
-import LoadingSpinner from '../../shared/LoadingSpinner';
+import auth from '../../../../firebase.init';
+import FailedToFetch from '../../../shared/FailedToFetch';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
 import AllOrdersRow from './AllOrdersRow';
 
 const ManageAllOrders = () => {
     const navigate = useNavigate();
     const { isLoading, error, data: allOrders, refetch } = useQuery('allOrders', () =>
-        fetch('http://localhost:5000/orders', {
+        fetch('https://tools-manufacturer.herokuapp.com/orders', {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -32,14 +32,13 @@ const ManageAllOrders = () => {
         return <FailedToFetch></FailedToFetch>
     };
     return (
-        <div>
-            <div className='card shadow-xl'>
-                <div class="overflow-x-auto card-body">
+            <div className='card shadow-xl bg-base-200'>
+                <div className="overflow-x-auto card-body">
                     <h1 className='text-3xl font-bold mb-10'>Your orders</h1>
-                    <table class="table table-zebra w-full">
+                    <table className="table table-zebra w-full">
                         <thead>
                             <tr className='text-left text-xl font-bold'>
-                                <th></th>
+                                <th className='invisible'></th>
                                 <th>Name</th>
                                 <th>CLient</th>
                                 <th>Quantity</th>
@@ -60,7 +59,6 @@ const ManageAllOrders = () => {
                     </table>
                 </div>
             </div>
-        </div>
     );
 };
 

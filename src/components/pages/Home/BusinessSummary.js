@@ -28,7 +28,7 @@ const BusinessSummary = () => {
                     <p className='font-bold'>Have any questions?</p>
                     <p className='font-thin'>Dont hesitate to contact us.</p>
                 </div>
-                <a className="btn btn-primary my-auto" href='#contact'>Contact Us</a>
+                <a className="btn btn-secondary my-auto" href='#contact'>Contact Us</a>
             </div>
         </div>
     );

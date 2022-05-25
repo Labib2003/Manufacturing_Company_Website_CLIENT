@@ -19,7 +19,7 @@ const Purchase = () => {
 
     // react query
     const { isLoading, error, data: tool, refetch } = useQuery('purchaseTool', () =>
-        fetch(`https://tools-manufacturer.herokuapp.com/tools/${id}`).then(res => res.json())
+        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`).then(res => res.json())
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
@@ -51,7 +51,7 @@ const Purchase = () => {
         })
             .then(res => res.json())
             .then(data => console.log(data));
-        fetch(`https://tools-manufacturer.herokuapp.com/tools/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -66,16 +66,16 @@ const Purchase = () => {
     }
 
     return (
-        <div class="hero mb-32">
-            <div class="hero-content flex-col lg:flex-row">
-                <div class="text-center md:text-left mr-10">
-                    <h1 class="text-5xl font-semibold leading-normal mb-5">You are purchasing: <span className='font-bold'>{tool.name}</span></h1>
-                    <p class="py-5 text-2xl">Per Unit Price: ${tool.per_unit_price}</p>
-                    <p class="py-5 text-2xl">Minimum Order Quantity: {tool.min_order_quantity}</p>
-                    <p class="py-5 text-2xl">Available Quantity: {tool.available_quantity}</p>
+        <div className="hero mb-32">
+            <div className="hero-content flex-col lg:flex-row">
+                <div className="text-center md:text-left mr-10">
+                    <h1 className="text-5xl font-semibold leading-normal mb-5">You are purchasing: <span className='font-bold'>{tool.name}</span></h1>
+                    <p className="py-5 text-2xl">Per Unit Price: ${tool.per_unit_price}</p>
+                    <p className="py-5 text-2xl">Minimum Order Quantity: {tool.min_order_quantity}</p>
+                    <p className="py-5 text-2xl">Available Quantity: {tool.available_quantity}</p>
                 </div>
-                <div class="card flex-shrink-0 w-1/2 shadow-2xl bg-base-100">
-                    <div class="card-body">
+                <div className="card flex-shrink-0 w-1/2 shadow-2xl bg-base-100">
+                    <div className="card-body">
                         <h1 className="card-title">Please fill up this form to continue.</h1>
                         <form onSubmit={handleOrder} className="w-full" autoComplete="off">
                             <div className="form-control">

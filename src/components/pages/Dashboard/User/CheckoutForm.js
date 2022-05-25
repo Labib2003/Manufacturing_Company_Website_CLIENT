@@ -2,7 +2,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
+import auth from '../../../../firebase.init';
 
 const CheckoutForm = ({ order }) => {
     const stripe = useStripe();

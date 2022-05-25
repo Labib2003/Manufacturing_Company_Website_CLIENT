@@ -9,7 +9,7 @@ const ProductRow = ({ product, index, refetch, setProduct }) => {
             <td>{name}</td>
             <td>{available_quantity}</td>
             <td>{per_unit_price}</td>
-            <td><label onClick={() => setProduct(product)} for="delete-product" class="btn btn-warning modal-button">Delete</label></td>
+            <td><label onClick={() => setProduct(product)} htmlFor="delete-product" className="btn btn-warning modal-button">Delete</label></td>
         </tr>
     );
 };

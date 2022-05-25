@@ -1,11 +1,9 @@
 import { signOut } from 'firebase/auth';
 import React, { useRef, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
+import auth from '../../../../firebase.init';
 
 const AddNewProduct = () => {
-    const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
     const [image, setImage] = useState(null);
@@ -39,7 +37,7 @@ const AddNewProduct = () => {
                         available_quantity: availableRef.current.value,
                         per_unit_price: priceRef.current.value
                     }
-                    fetch(`http://localhost:5000/tools`, {
+                    fetch(`https://tools-manufacturer.herokuapp.com/tools`, {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json; charset=UTF-8',
@@ -64,9 +62,9 @@ const AddNewProduct = () => {
 
     return (
         <div>
-            <div class="card bg-base-200 shadow-2xl">
-                <div class="card-body">
-                    <h1 className="card-title">Enter Product Info</h1>
+            <div className="card bg-base-200 shadow-2xl">
+                <div className="card-body">
+                    <h1 className="card-title text-3xl font-bold">Enter Product Info</h1>
                     <form onSubmit={handleAddNewProduct} className="w-full" autoComplete="off">
                         <div className="form-control mb-5">
                             <label className="label">
@@ -132,13 +130,17 @@ const AddNewProduct = () => {
                         </div>
                         <div className="form-control w-full mb-5">
                             <label className="label">
-                                <span className="label-text text-sm">Photo</span>
+                                <span className="label-text">Photo</span>
                             </label>
-                            <input type="file" onChange={e => {
-                                setImage(e.target.files[0]);
-                            }} required />
+                            <input
+                                type="file"
+                                onChange={e => {
+                                    setImage(e.target.files[0]);
+                                }}
+                                required
+                            />
                         </div>
-                        <input className='btn btn-accent w-full text-white' type="submit" value="Place Order" />
+                        <input className='btn btn-secondary w-full text-white' type="submit" value="Place Order" />
                     </form>
                 </div>
             </div>

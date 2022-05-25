@@ -14,9 +14,9 @@ const OrdersRow = ({ order, index, setOrder }) => {
             <td className='w-1/3'>{transactionId ? `TransactionId: ${transactionId}` : <div className='grid grid-cols-2 gap-5 place-content-center'>
                 <Link to={`/dashboard/payment/${_id}`} className="btn btn-success">Pay</Link>
                 <label
-                    for="deleteModal"
-                    class="btn modal-button btn-error"
-                onClick={() => setOrder(order)}
+                    htmlFor="deleteModal"
+                    className="btn modal-button btn-error"
+                    onClick={() => setOrder(order)}
                 >Cancel</label>
             </div>}</td>
         </tr>

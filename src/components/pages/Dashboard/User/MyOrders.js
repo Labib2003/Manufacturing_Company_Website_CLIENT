@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
-import FailedToFetch from '../../shared/FailedToFetch';
-import LoadingSpinner from '../../shared/LoadingSpinner';
+import auth from '../../../../firebase.init';
+import FailedToFetch from '../../../shared/FailedToFetch';
+import LoadingSpinner from '../../../shared/LoadingSpinner';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import OrdersRow from './OrdersRow';
 
@@ -43,9 +43,9 @@ const MyOrders = () => {
 
     return (
         <div className='card shadow-xl'>
-            <div class="overflow-x-auto card-body">
+            <div className="overflow-x-auto card-body">
                 <h1 className='text-3xl font-bold mb-10'>Your orders</h1>
-                <table class="table table-zebra w-full">
+                <table className="table table-zebra w-full">
                     <thead>
                         <tr className='text-left text-xl font-bold'>
                             <th></th>

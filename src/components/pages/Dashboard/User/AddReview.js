@@ -2,12 +2,12 @@ import { signOut } from 'firebase/auth';
 import React, { useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import auth from '../../../firebase.init';
+import auth from '../../../../firebase.init';
 
 const AddReview = () => {
     // getting user info
     const [user] = useAuthState(auth);
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const starsRef = useRef(0);
     const reviewRef = useRef('');
@@ -44,31 +44,31 @@ const AddReview = () => {
         <div className='card shadow-xl'>
             <form onSubmit={handleSubmitReview} className='card-body'>
                 <h1 className='text-3xl font-bold'>Please let us know your experience with us.</h1>
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text">Name</span>
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Name</span>
                     </label>
                     <input
                         type="text"
                         value={user.displayName}
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                         readOnly
                     />
                 </div>
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text">Email</span>
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Email</span>
                     </label>
                     <input
                         type="text"
                         value={user.email}
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                         readOnly
                     />
                 </div>
-                <div class="form-control w-full">
-                    <label class="label">
-                        <span class="label-text">Rating (Out of 5)</span>
+                <div className="form-control w-full">
+                    <label className="label">
+                        <span className="label-text">Rating (Out of 5)</span>
                     </label>
                     <input
                         type="number"
@@ -76,19 +76,19 @@ const AddReview = () => {
                         max='5'
                         ref={starsRef}
                         placeholder="Enter your rating here."
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>
-                <div class="">
-                    <label class="label">
-                        <span class="label-text">Review</span>
+                <div className="">
+                    <label className="label">
+                        <span className="label-text">Review</span>
                     </label>
                     <input
                         type="text"
                         ref={reviewRef}
                         placeholder="Enter your review here."
-                        class="input input-bordered w-full"
+                        className="input input-bordered w-full"
                         required
                     />
                 </div>

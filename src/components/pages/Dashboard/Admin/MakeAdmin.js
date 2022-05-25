@@ -9,6 +9,7 @@ import UserRow from './UserRow';
 
 const MakeAdmin = () => {
     const navigate = useNavigate();
+    
     const { isLoading, error, data: users, refetch } = useQuery('users', () =>
         fetch('https://tools-manufacturer.herokuapp.com/users', {
             method: 'GET',

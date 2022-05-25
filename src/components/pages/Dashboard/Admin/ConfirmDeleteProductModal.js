@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import auth from '../../../../firebase.init';
 
 const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
-    const { _id, name } = product;
     const navigate = useNavigate();
+    const { _id, name } = product;
 
     const handleDelete = (id) => {
         setProduct(null);
@@ -28,13 +28,23 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
 
     return (
         <div>
-            <input type="checkbox" id="delete-product" className="modal-toggle" />
+            <input
+                type="checkbox"
+                id="delete-product"
+                className="modal-toggle"
+            />
             <div className="modal">
                 <div className="modal-box relative">
                     <h3 className="text-lg font-bold mb-10">Are you sure you want to delete {name}?</h3>
                     <div className='flex justify-around'>
-                        <button className='btn btn-error' onClick={() => handleDelete(_id)}>Delete</button>
-                        <label htmlFor="delete-product" className="btn btn-success">No</label>
+                        <button
+                            className='btn btn-error'
+                            onClick={() => handleDelete(_id)}
+                        >Delete</button>
+                        <label
+                            htmlFor="delete-product"
+                            className="btn btn-success"
+                        >No</label>
                     </div>
                 </div>
             </div>

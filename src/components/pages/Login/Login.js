@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 import auth from '../../../firebase.init';
 import useToken from '../../../hooks/useToken';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     // react firebase hooks
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    const [sendPasswordResetEmail, sending, resetError] = useSendPasswordResetEmail(auth);
+
+    const emailRef = useRef();
 
     // react hook form
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -37,6 +41,13 @@ const Login = () => {
         errorMessage = `${error ? error?.message : ''} ${googleError ? googleError?.message : ''}`;
     };
 
+    // password reset email
+    const handleSendResetEmail = async () => {
+        const email = emailRef.current.value
+        await sendPasswordResetEmail(email);
+        toast.success("Password Reset Email Sent!");
+    }
+
     return (
         <div className='flex justify-center mb-32'>
             <div className="card w-96 bg-base-100 shadow-xl">
@@ -49,6 +60,7 @@ const Login = () => {
                             </label>
                             <input
                                 type="text"
+                                ref={emailRef}
                                 placeholder="Your Email"
                                 className="input input-bordered w-full max-w-xs"
                                 {...register("email", {
@@ -92,7 +104,10 @@ const Login = () => {
                             </label>
                         </div>
                         <p className='mb-5 text-red-500'>{errorMessage}</p>
-                        <input className='btn btn-accent w-full max-w-xs text-white' type="submit" value="Login" />
+                        <p className='mb-5'>Forgot password? <span
+                            className='text-secondary cursor-pointer'
+                            onClick={handleSendResetEmail}>Send password reset email</span></p>
+                        <input className='btn btn-secondary w-full max-w-xs text-white' type="submit" value="Login" />
                     </form>
                     <p><small>New to our site? <Link className='text-accent' to="/register">Create New Account</Link></small></p>
                     <div className="divider">OR</div>

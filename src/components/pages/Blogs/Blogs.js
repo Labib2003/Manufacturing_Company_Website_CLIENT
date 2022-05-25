@@ -31,7 +31,7 @@ const Blogs = () => {
                 <div className='card-body'>
                     <h3 className='card-title'>You have an array of products. Each product has a name, price, description, etc. How will you implement a search to find products by name?</h3>
                     <p>
-                        <a className='link' href="https://raw.githubusercontent.com/programming-hero-web-course1/manufacturer-website-client-side-Labib2003/main/public/arrayOfProducts.js?token=GHSAT0AAAAAABUIAPA3ASUI3GGBXVUGTFDGYUN2UPQ">Code</a>
+                        <a className='link' href="https://raw.githubusercontent.com/Labib2003/findByName/main/app.js">Code</a>
                     </p>
                 </div>
             </div>

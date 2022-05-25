@@ -67,7 +67,11 @@ const MyOrders = () => {
                         }
                     </tbody>
                 </table>
-                {order && <DeleteConfirmModal order={order} setOrder={setOrder} refetch={refetch}></DeleteConfirmModal>}
+                {order && <DeleteConfirmModal
+                    order={order}
+                    setOrder={setOrder}
+                    refetch={refetch}
+                ></DeleteConfirmModal>}
             </div>
         </div>
     );

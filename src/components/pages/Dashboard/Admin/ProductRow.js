@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductRow = ({ product, index, refetch, setProduct }) => {
+const ProductRow = ({ product, index, setProduct }) => {
     const { name, available_quantity, per_unit_price } = product;
 
     return (
@@ -9,7 +9,12 @@ const ProductRow = ({ product, index, refetch, setProduct }) => {
             <td>{name}</td>
             <td>{available_quantity}</td>
             <td>{per_unit_price}</td>
-            <td><label onClick={() => setProduct(product)} htmlFor="delete-product" className="btn btn-warning modal-button">Delete</label></td>
+            <td><label
+                onClick={() =>
+                    setProduct(product)}
+                htmlFor="delete-product"
+                className="btn btn-warning modal-button"
+            >Delete</label></td>
         </tr>
     );
 };

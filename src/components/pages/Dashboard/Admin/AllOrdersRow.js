@@ -34,8 +34,25 @@ const AllOrdersRow = ({ order, index, refetch }) => {
             <td>{name}</td>
             <td>{email}</td>
             <td>{quantity}</td>
-            <td>{paid ? 'Paid' : 'Unpaid'}</td>
-            <td>{paid ? shipped ? 'Shipped' : <button className='btn btn-success' onClick={() => handleShipping(_id)}>Ship</button> : 'Payment Pending'}</td>
+            <td>{paid
+                ?
+                <p className='text-lime-500'>Paid</p>
+                :
+                <p className='text-red-500'>Payment Pending</p>
+            }</td>
+            <td>{paid
+                ?
+                shipped
+                    ?
+                    <p className='text-lime-500'>Shipped</p>
+                    :
+                    <button
+                        className='btn btn-success'
+                        onClick={() => handleShipping(_id)}
+                    >Ship</button>
+                :
+                <p className='text-red-500'>Payment Pending</p>
+            }</td>
         </tr>
     );
 };

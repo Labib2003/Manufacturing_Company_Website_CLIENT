@@ -23,7 +23,10 @@ const Tools = () => {
             <h1 className='text-3xl font-bold mb-5'>Our Product Line (Total Product: {tools.length})</h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 mb-5'>
                 {
-                    firstSix.map(tool => <Tool key={tool._id} tool={tool}></Tool>)
+                    firstSix.map(tool => <Tool
+                        key={tool._id}
+                        tool={tool}
+                    ></Tool>)
                 }
             </div>
             <Link className='btn btn-secondary' to='/allProducts'>All Products</Link>

@@ -5,6 +5,7 @@ import auth from '../../../../firebase.init';
 
 const UserRow = ({ user, index, refetch }) => {
     const navigate = useNavigate();
+
     const makeAdmin = (email) => {
         fetch(`https://tools-manufacturer.herokuapp.com/user/admin/${email}`, {
             method: 'PUT',
@@ -29,8 +30,21 @@ const UserRow = ({ user, index, refetch }) => {
         <tr>
             <td>{index + 1}</td>
             <td>{user.email}</td>
-            <td>{user?.admin ? 'Admin' : 'User'}</td>
-            <td>{user?.admin ? 'Already Admin' : <button onClick={() => makeAdmin(user.email)} className='btn btn-success'>Make Admin</button>}</td>
+            <td>{user?.admin
+                ?
+                <p className='text-lime-500'>Admin</p>
+                :
+                <p className='text-secondary'>User</p>
+            }</td>
+            <td>{user?.admin
+                ?
+                <p className='text-lime-500'>Already Admin</p>
+                :
+                <button
+                    onClick={() => makeAdmin(user.email)}
+                    className='btn btn-success'
+                >Make Admin</button>
+            }</td>
         </tr>
     );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
@@ -61,6 +62,7 @@ const Purchase = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                toast.success("Order placed successfully. Check your dashboard to confirm your order and pay.")
                 refetch();
             });
     }
@@ -68,13 +70,13 @@ const Purchase = () => {
     return (
         <div className="hero mb-32">
             <div className="hero-content flex-col lg:flex-row">
-                <div className="text-center md:text-left mr-10">
+                <div className="text-center md:text-left lg:mr-10">
                     <h1 className="text-5xl font-semibold leading-normal mb-5">You are purchasing: <span className='font-bold'>{tool.name}</span></h1>
                     <p className="py-5 text-2xl">Per Unit Price: ${tool.per_unit_price}</p>
                     <p className="py-5 text-2xl">Minimum Order Quantity: {tool.min_order_quantity}</p>
                     <p className="py-5 text-2xl">Available Quantity: {tool.available_quantity}</p>
                 </div>
-                <div className="card flex-shrink-0 w-1/2 shadow-2xl bg-base-100">
+                <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
                     <div className="card-body">
                         <h1 className="card-title">Please fill up this form to continue.</h1>
                         <form onSubmit={handleOrder} className="w-full" autoComplete="off">
@@ -138,7 +140,11 @@ const Purchase = () => {
                                     required
                                 />
                             </div>
-                            <input className='btn btn-accent w-full text-white' type="submit" value="Place Order" />
+                            <input
+                                className='btn btn-secondary w-full text-white'
+                                type="submit"
+                                value="Place Order"
+                            />
                         </form>
                     </div>
                 </div>

@@ -21,7 +21,10 @@ const AllProducts = () => {
             <h1 className='text-3xl font-bold mb-5 text-center'>All Products</h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 mb-32'>
                 {
-                    tools.map(tool => <Tool key={tool._id} tool={tool}></Tool>)
+                    tools.map(tool => <Tool
+                        key={tool._id}
+                        tool={tool}
+                    ></Tool>)
                 }
             </div>
         </div>

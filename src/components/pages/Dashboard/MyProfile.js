@@ -43,7 +43,10 @@ const MyProfile = () => {
 
     return (
         <div className='card shadow-xl bg-base-200'>
-            <form onSubmit={handleUpdateProfile} className='card-body'>
+            <form
+                onSubmit={handleUpdateProfile}
+                className='card-body'
+            >
                 <h1 className='text-3xl font-bold'>Your Profile</h1>
                 <div className="form-control w-full">
                     <label className="label">
@@ -89,7 +92,11 @@ const MyProfile = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-                <input type="submit" className='btn btn-secondary mt-5 w-full max-w-xs mx-auto' value='update profile' />
+                <input
+                    type="submit"
+                    className='btn btn-secondary mt-5 w-full max-w-xs mx-auto'
+                    value='update profile'
+                />
             </form>
         </div>
     );

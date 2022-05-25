@@ -24,7 +24,10 @@ const Tool = ({ tool }) => {
                     <p className='mb-1'>Price (per unit): ${per_unit_price}</p>
                 </div>
                 <div className="card-actions">
-                    <button onClick={() => navigateToUpdate(_id)} className="btn btn-secondary">Buy Now</button>
+                    <button
+                        onClick={() => navigateToUpdate(_id)}
+                        className="btn btn-secondary"
+                    >Buy Now</button>
                 </div>
             </div>
         </div>

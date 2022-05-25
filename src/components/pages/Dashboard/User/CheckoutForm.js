@@ -135,9 +135,11 @@ const CheckoutForm = ({ order }) => {
             />
             <p className='text-xl text-red-500 font-semibold my-5'>{stripeError}</p>
             <p className='text-xl text-lime-500 font-semibold my-5'>{(success && transactionId) && `${success} Transaction Id: ${transactionId}`}</p>
-            <button className='btn btn-success' type="submit" disabled={!stripe || !clientSecret}>
-                Pay
-            </button>
+            <button
+                className='btn btn-success'
+                type="submit"
+                disabled={!stripe || !clientSecret}
+            >Pay</button>
         </form>
     );
 };

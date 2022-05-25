@@ -34,8 +34,14 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
                     <h3 className="text-lg font-bold mb-5">Cancel your <span className='text-error'>{name}</span> order?</h3>
                     <p className='mb-5'>You ordered {quantity} pieces of this product.</p>
                     <div className='flex justify-between'>
-                        <button onClick={() => handleDelete(_id)} className='btn btn-error'>Confirm</button>
-                        <label htmlFor="deleteModal" className='btn btn-warning'>Go back</label>
+                        <button
+                            onClick={() => handleDelete(_id)}
+                            className='btn btn-error'
+                        >Confirm</button>
+                        <label
+                            htmlFor="deleteModal"
+                            className='btn btn-warning'
+                        >Go back</label>
                     </div>
                 </div>
             </div>

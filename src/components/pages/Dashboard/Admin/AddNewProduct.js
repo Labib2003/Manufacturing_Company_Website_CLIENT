@@ -7,14 +7,17 @@ import auth from '../../../../firebase.init';
 const AddNewProduct = () => {
     const navigate = useNavigate();
 
+    // for image upload
     const [image, setImage] = useState(null);
 
+    // user inputs
     const nameRef = useRef('');
     const descriptionRef = useRef('');
     const availableRef = useRef(0);
     const minRef = useRef(0);
     const priceRef = useRef(0);
 
+    // imagebb key
     const imageUploadKey = '5a4eb1ee63d962e1a439c22cbda3f289';
 
     const handleAddNewProduct = (event) => {
@@ -68,7 +71,11 @@ const AddNewProduct = () => {
             <div className="card bg-base-200 shadow-2xl">
                 <div className="card-body">
                     <h1 className="card-title text-3xl font-bold">Enter Product Info</h1>
-                    <form onSubmit={handleAddNewProduct} className="w-full" autoComplete="off">
+                    <form
+                        onSubmit={handleAddNewProduct}
+                        className="w-full"
+                        autoComplete="off"
+                    >
                         <div className="form-control mb-5">
                             <label className="label">
                                 <span className="label-text">Name</span>
@@ -143,7 +150,11 @@ const AddNewProduct = () => {
                                 required
                             />
                         </div>
-                        <input className='btn btn-secondary w-full text-white' type="submit" value="Place Order" />
+                        <input
+                            className='btn btn-secondary w-full text-white'
+                            type="submit"
+                            value="Place Order"
+                        />
                     </form>
                 </div>
             </div>

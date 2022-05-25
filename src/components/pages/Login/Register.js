@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import useToken from '../../../hooks/useToken';
 import LoadingSpinner from '../../shared/LoadingSpinner';
@@ -11,6 +12,7 @@ const Register = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [sendEmailVerification, sending, verificationError] = useSendEmailVerification(auth);
 
     //react hook from
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -19,6 +21,8 @@ const Register = () => {
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
+        await sendEmailVerification();
+    toast.info("Check your email to verify your account.");
         console.log('name updated');
     };
 
@@ -114,7 +118,7 @@ const Register = () => {
                             </label>
                         </div>
                         <p className='mb-5 text-red-500'>{errorMessage}</p>
-                        <input className='btn btn-accent w-full max-w-xs text-white' type="submit" value="Sign Up" />
+                        <input className='btn btn-secondary w-full max-w-xs text-white' type="submit" value="Sign Up" />
                     </form>
                     <p><small>Already have an account? <Link className='text-accent' to="/login">Log In</Link></small></p>
                     <div className="divider">OR</div>

@@ -9,6 +9,7 @@ const AddReview = () => {
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
 
+    // user input
     const starsRef = useRef(0);
     const reviewRef = useRef('');
 
@@ -92,7 +93,7 @@ const AddReview = () => {
                         required
                     />
                 </div>
-                <input type="submit" className='btn btn-success mt-5 w-full max-w-xs mx-auto' />
+                <input type="submit" className='btn btn-secondary mt-5 w-full max-w-xs mx-auto' />
             </form>
         </div>
     );

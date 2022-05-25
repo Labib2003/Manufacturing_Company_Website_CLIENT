@@ -39,13 +39,16 @@ const ManageProducts = () => {
                                 key={product._id}
                                 product={product}
                                 index={index}
-
                                 setProduct={setProduct}
                             ></ProductRow>)
                         }
                     </tbody>
                 </table>
-                {product && <ConfirmDeleteProductModal product={product} setProduct={setProduct} refetch={refetch}></ConfirmDeleteProductModal>}
+                {product && <ConfirmDeleteProductModal
+                    product={product}
+                    setProduct={setProduct}
+                    refetch={refetch}
+                ></ConfirmDeleteProductModal>}
             </div>
         </div>
     );

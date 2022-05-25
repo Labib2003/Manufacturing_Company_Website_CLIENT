@@ -9,6 +9,7 @@ import AllOrdersRow from './AllOrdersRow';
 
 const ManageAllOrders = () => {
     const navigate = useNavigate();
+    
     const { isLoading, error, data: allOrders, refetch } = useQuery('allOrders', () =>
         fetch('https://tools-manufacturer.herokuapp.com/orders', {
             method: 'GET',

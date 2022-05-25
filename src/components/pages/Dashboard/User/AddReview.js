@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import React, { useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 
 const AddReview = () => {
@@ -39,7 +40,12 @@ const AddReview = () => {
                 return res.json()
             }
             )
-            .then(data => console.log(data));
+            .then(data => {
+                console.log(data);
+                starsRef.current.value = '';
+                reviewRef.current.value = '';
+                toast.success("Review Posted. Thanks for your feedback.");
+            });
     }
     return (
         <div className='card shadow-xl'>
@@ -93,7 +99,10 @@ const AddReview = () => {
                         required
                     />
                 </div>
-                <input type="submit" className='btn btn-secondary mt-5 w-full max-w-xs mx-auto' />
+                <input
+                    type="submit"
+                    className='btn btn-secondary mt-5 w-full max-w-xs mx-auto'
+                />
             </form>
         </div>
     );

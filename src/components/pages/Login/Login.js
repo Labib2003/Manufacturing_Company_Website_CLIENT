@@ -109,7 +109,7 @@ const Login = () => {
                             onClick={handleSendResetEmail}>Send password reset email</span></p>
                         <input className='btn btn-secondary w-full max-w-xs text-white' type="submit" value="Login" />
                     </form>
-                    <p><small>New to our site? <Link className='text-accent' to="/register">Create New Account</Link></small></p>
+                    <p><small>New to our site? <Link className='text-secondary' to="/register">Create New Account</Link></small></p>
                     <div className="divider">OR</div>
                     <button
                         onClick={() => signInWithGoogle()}

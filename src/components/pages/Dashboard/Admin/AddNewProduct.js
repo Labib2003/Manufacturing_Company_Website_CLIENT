@@ -153,7 +153,7 @@ const AddNewProduct = () => {
                         <input
                             className='btn btn-secondary w-full text-white'
                             type="submit"
-                            value="Place Order"
+                            value="Add Item"
                         />
                     </form>
                 </div>

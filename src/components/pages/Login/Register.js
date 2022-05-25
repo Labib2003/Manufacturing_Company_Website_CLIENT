@@ -120,7 +120,7 @@ const Register = () => {
                         <p className='mb-5 text-red-500'>{errorMessage}</p>
                         <input className='btn btn-secondary w-full max-w-xs text-white' type="submit" value="Sign Up" />
                     </form>
-                    <p><small>Already have an account? <Link className='text-accent' to="/login">Log In</Link></small></p>
+                    <p><small>Already have an account? <Link className='text-secondary' to="/login">Log In</Link></small></p>
                     <div className="divider">OR</div>
                     <button
                         onClick={() => signInWithGoogle()}

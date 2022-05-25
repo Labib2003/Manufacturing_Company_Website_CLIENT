@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 
 const PageNotFound = () => {
     return (
-        <div className='h-screen'>
+        <div style={{  
+            backgroundImage: "url(" + "https://miro.medium.com/max/800/1*hFwwQAW45673VGKrMPE2qQ.png" + ")",
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+          }} className='h-screen'>
             <div className='grid place-items-center'>
                 <div className='text-center my-10'>
                     <h1 className='text-5xl font-bold mb-5'>Oops!</h1>

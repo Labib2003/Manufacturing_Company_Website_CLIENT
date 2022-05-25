@@ -35,7 +35,7 @@ const ManageAllOrders = () => {
     return (
             <div className='card shadow-xl bg-base-200'>
                 <div className="overflow-x-auto card-body">
-                    <h1 className='text-3xl font-bold mb-10'>Your orders</h1>
+                    <h1 className='text-3xl font-bold mb-10'>Manage all orders</h1>
                     <table className="table table-zebra w-full">
                         <thead>
                             <tr className='text-left text-xl font-bold'>

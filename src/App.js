@@ -17,6 +17,10 @@ import Footer from './components/shared/Footer';
 import Navbar from './components/shared/Navbar';
 import RequiteAuth from './components/shared/RequiteAuth';
 import RequireAdmin from './hooks/RequireAdmin';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AllProducts from './components/pages/Home/AllProducts';
+import PageNotFound from './components/shared/PageNotFound';
 
 function App() {
   return (
@@ -28,6 +32,7 @@ function App() {
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='/tools/:id' element={<RequiteAuth><Purchase></Purchase></RequiteAuth>}></Route>
+        <Route path='/allProducts' element={<AllProducts></AllProducts>}></Route>
         <Route path='/dashboard' element={<RequiteAuth><Dashboard></Dashboard></RequiteAuth>}>
           <Route index element={<MyProfile></MyProfile>}></Route>
           <Route path='payment/:id' element={<Payment></Payment>}></Route>
@@ -38,7 +43,9 @@ function App() {
           <Route path='makeAdmin' element={<RequireAdmin><MakeAdmin></MakeAdmin></RequireAdmin>}></Route>
           <Route path='manageProducts' element={<RequireAdmin><ManageProducts></ManageProducts></RequireAdmin>}></Route>
         </Route>
+        <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
       </Routes>
+      <ToastContainer />
       <Footer></Footer>
     </div>
   );

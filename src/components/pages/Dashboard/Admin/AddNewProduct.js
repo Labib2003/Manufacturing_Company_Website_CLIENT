@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 
 const AddNewProduct = () => {
@@ -51,7 +52,9 @@ const AddNewProduct = () => {
                                 localStorage.removeItem('accessToken');
                                 navigate('/login');
                             }
-                            return res.json()
+                            toast.success("Item successfully added!");
+                            navigate('/');
+                            return res.json();
                         }
                         )
                         .then(data => console.log(data));

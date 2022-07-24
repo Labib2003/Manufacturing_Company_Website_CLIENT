@@ -23,7 +23,7 @@ const AddReview = () => {
             stars: `${starsRef.current.value}/5`,
             body: reviewRef.current.value
         }
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://tools-manufacturer.herokuapp.com/reviews', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

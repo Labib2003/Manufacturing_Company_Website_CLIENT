@@ -20,7 +20,7 @@ const Purchase = () => {
 
     // react query
     const { isLoading, error, data: tool, refetch } = useQuery('purchaseTool', () =>
-        fetch(`http://localhost:5000/tool/${id}`).then(res => res.json())
+        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`).then(res => res.json())
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
@@ -42,7 +42,7 @@ const Purchase = () => {
             transactionId: ''
         };
         const newQuantity = parseInt(tool.available_quantity) - parseInt(quantityRef.current.value);
-        fetch('http://localhost:5000/order', {
+        fetch('https://tools-manufacturer.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -58,7 +58,7 @@ const Purchase = () => {
                 }
             });
 
-        fetch(`http://localhost:5000/tool/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

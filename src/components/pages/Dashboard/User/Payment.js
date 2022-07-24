@@ -19,7 +19,7 @@ const Payment = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const { isLoading, error, data: order } = useQuery(['payment', id], () =>
-        fetch(`http://localhost:5000/order/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/order/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,

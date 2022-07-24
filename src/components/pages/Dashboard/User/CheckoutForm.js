@@ -23,7 +23,7 @@ const CheckoutForm = ({ order }) => {
     const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:5000/create-payment-intent`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/create-payment-intent`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -99,7 +99,7 @@ const CheckoutForm = ({ order }) => {
             setStripeError('');
             setSuccess("Payment successful!");
             setTransactionID(paymentIntent.id);
-            fetch(`http://localhost:5000/order/${_id}`, {
+            fetch(`https://tools-manufacturer.herokuapp.com/order/${_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

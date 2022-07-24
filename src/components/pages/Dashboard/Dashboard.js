@@ -13,7 +13,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const { isLoading, error, data: userFromDb } = useQuery('userFromDb', () =>
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/${user.email}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,

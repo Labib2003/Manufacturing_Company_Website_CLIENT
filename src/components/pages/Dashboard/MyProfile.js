@@ -19,7 +19,7 @@ const MyProfile = () => {
             address: addressRef.current.value
         }
 
-        fetch(`http://localhost:5000/user/${user.email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/${user.email}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

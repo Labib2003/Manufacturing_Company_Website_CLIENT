@@ -20,7 +20,7 @@ const MyOrders = () => {
 
     // react query
     const { isLoading, error, data: orders, refetch } = useQuery('orders', () =>
-        fetch(`http://localhost:5000/orders/${email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/orders/${email}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,

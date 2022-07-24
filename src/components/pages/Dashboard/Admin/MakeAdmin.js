@@ -14,7 +14,7 @@ const MakeAdmin = () => {
     const [user] = useAuthState(auth);
 
     const { isLoading, error, data: users, refetch } = useQuery('users', () =>
-        fetch('http://localhost:5000/users', {
+        fetch('https://tools-manufacturer.herokuapp.com/users', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,

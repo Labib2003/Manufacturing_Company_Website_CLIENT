@@ -13,7 +13,7 @@ const ManageAllOrders = () => {
     const [user] = useAuthState(auth);
 
     const { isLoading, error, data: allOrders, refetch } = useQuery('allOrders', () =>
-        fetch('http://localhost:5000/orders', {
+        fetch('https://tools-manufacturer.herokuapp.com/orders', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,

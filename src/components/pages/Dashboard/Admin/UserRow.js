@@ -10,7 +10,7 @@ const UserRow = ({ user: user_, index, refetch }) => {
     const [user] = useAuthState(auth);
 
     const makeAdmin = (email) => {
-        fetch(`http://localhost:5000/user/admin/${email}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

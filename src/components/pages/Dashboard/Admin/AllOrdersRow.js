@@ -13,7 +13,7 @@ const AllOrdersRow = ({ order, index, refetch }) => {
     const { _id, name, email, quantity, paid, shipped } = order;
 
     const handleShipping = (id) => {
-        fetch(`http://localhost:5000/order/ship/${id}`, {
+        fetch(`https://tools-manufacturer.herokuapp.com/order/ship/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',

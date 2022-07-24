@@ -1,26 +1,32 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 
 const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
     const { name, quantity, _id } = order;
     const navigate = useNavigate();
+    const [user] = useAuthState(auth);
 
     const handleDelete = (id) => {
         setOrder(null);
-        fetch(`https://tools-manufacturer.herokuapp.com/order/${id}`, {
+        fetch(`http://localhost:5000/order/${id}`, {
             method: 'DELETE',
             headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             }
         }).then(res => {
-            if (res.status === 401 || res.status === 403) {
+            if (res.status !== 200) {
                 signOut(auth);
                 localStorage.removeItem('accessToken');
                 navigate('/login');
+                toast.error(`Error ${res.status}`);
             }
             refetch();
+            toast.success("Order cancelled.")
             return res.json();
         }
         )

@@ -23,20 +23,23 @@ const AddReview = () => {
             stars: `${starsRef.current.value}/5`,
             body: reviewRef.current.value
         }
-        fetch('https://tools-manufacturer.herokuapp.com/reviews', {
+        fetch('http://localhost:5000/reviews', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             },
             body: JSON.stringify(review)
         })
             .then(res => {
-                if (res.status === 401 || res.status === 403) {
+                if (res.status !== 200) {
                     signOut(auth);
                     localStorage.removeItem('accessToken');
                     navigate('/login');
+                    return toast.error(`Error ${res.status}`);
                 }
+                toast.success("Review Posted. Thanks for your feedback.")
                 return res.json()
             }
             )
@@ -44,7 +47,6 @@ const AddReview = () => {
                 console.log(data);
                 starsRef.current.value = '';
                 reviewRef.current.value = '';
-                toast.success("Review Posted. Thanks for your feedback.");
             });
     }
     return (

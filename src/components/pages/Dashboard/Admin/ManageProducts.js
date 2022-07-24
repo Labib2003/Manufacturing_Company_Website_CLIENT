@@ -9,7 +9,7 @@ const ManageProducts = () => {
     const [product, setProduct] = useState({});
 
     const { isLoading, error, data: products, refetch } = useQuery('products', () =>
-        fetch('https://tools-manufacturer.herokuapp.com/tools').then(res =>
+        fetch('http://localhost:5000/tools').then(res =>
             res.json()
         )
     );

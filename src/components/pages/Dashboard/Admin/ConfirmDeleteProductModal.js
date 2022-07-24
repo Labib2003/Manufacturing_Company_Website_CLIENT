@@ -1,26 +1,33 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 
 const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
     const navigate = useNavigate();
     const { _id, name } = product;
 
+    const [user] = useAuthState(auth);
+
     const handleDelete = (id) => {
         setProduct(null);
-        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`, {
+        fetch(`http://localhost:5000/tool/${id}`, {
             method: 'DELETE',
             headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             }
         }).then(res => {
-            if (res.status === 401 || res.status === 403) {
+            if (res.status !== 200) {
                 signOut(auth);
                 localStorage.removeItem('accessToken');
                 navigate('/login');
+                return toast.error(`Error ${res.status}`)
             }
             refetch();
+            toast.success("Item deleted.");
             return res.json();
         }
         )

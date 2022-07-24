@@ -1,7 +1,9 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 import FailedToFetch from '../../../shared/FailedToFetch';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
@@ -9,18 +11,21 @@ import UserRow from './UserRow';
 
 const MakeAdmin = () => {
     const navigate = useNavigate();
-    
+    const [user] = useAuthState(auth);
+
     const { isLoading, error, data: users, refetch } = useQuery('users', () =>
-        fetch('https://tools-manufacturer.herokuapp.com/users', {
+        fetch('http://localhost:5000/users', {
             method: 'GET',
             headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             }
         }).then(res => {
-            if (res.status === 401 || res.status === 403) {
+            if (res.status !== 200) {
                 signOut(auth);
                 localStorage.removeItem('accessToken');
                 navigate('/login');
+                return toast.error(`Error ${res.status}`)
             }
             return res.json()
         }

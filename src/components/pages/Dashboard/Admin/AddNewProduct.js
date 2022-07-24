@@ -1,11 +1,13 @@
 import { signOut } from 'firebase/auth';
 import React, { useRef, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 
 const AddNewProduct = () => {
     const navigate = useNavigate();
+    const [user] = useAuthState(auth);
 
     // for image upload
     const [image, setImage] = useState(null);
@@ -41,19 +43,21 @@ const AddNewProduct = () => {
                         available_quantity: availableRef.current.value,
                         per_unit_price: priceRef.current.value
                     }
-                    fetch(`https://tools-manufacturer.herokuapp.com/tools`, {
+                    fetch(`http://localhost:5000/tools`, {
                         method: 'POST',
                         headers: {
                             'Content-type': 'application/json; charset=UTF-8',
-                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                            'From': user.email
                         },
                         body: JSON.stringify(newProduct)
                     })
                         .then(res => {
-                            if (res.status === 401 || res.status === 403) {
+                            if (res.status !== 200) {
                                 signOut(auth);
                                 localStorage.removeItem('accessToken');
                                 navigate('/login');
+                                return toast.error(`Error ${res.status}`);
                             }
                             toast.success("Item successfully added!");
                             navigate('/');

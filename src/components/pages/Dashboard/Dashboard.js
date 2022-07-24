@@ -3,6 +3,7 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import FailedToFetch from '../../shared/FailedToFetch';
 import LoadingSpinner from '../../shared/LoadingSpinner';
@@ -12,20 +13,23 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     const { isLoading, error, data: userFromDb } = useQuery('userFromDb', () =>
-        fetch(`https://tools-manufacturer.herokuapp.com/user/${user.email}`, {
+        fetch(`http://localhost:5000/user/${user.email}`, {
             method: 'GET',
             headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             }
-        }).then(res => {
-            if (res.status === 401 || res.status === 403) {
-                signOut(auth);
-                localStorage.removeItem('accessToken');
-                navigate('/login');
+        })
+            .then(res => {
+                if (res.status !== 200) {
+                    signOut(auth);
+                    localStorage.removeItem('accessToken');
+                    navigate('/login');
+                    toast.error(`Error ${res.status}`);
+                }
+                return res.json();
             }
-            return res.json();
-        }
-        )
+            )
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>

@@ -20,7 +20,7 @@ const Purchase = () => {
 
     // react query
     const { isLoading, error, data: tool, refetch } = useQuery('purchaseTool', () =>
-        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`).then(res => res.json())
+        fetch(`http://localhost:5000/tool/${id}`).then(res => res.json())
     );
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
@@ -42,28 +42,41 @@ const Purchase = () => {
             transactionId: ''
         };
         const newQuantity = parseInt(tool.available_quantity) - parseInt(quantityRef.current.value);
-        fetch('https://tools-manufacturer.herokuapp.com/order', {
+        fetch('http://localhost:5000/order', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             },
             body: JSON.stringify(order)
         })
             .then(res => res.json())
-            .then(data => console.log(data));
-        fetch(`https://tools-manufacturer.herokuapp.com/tool/${id}`, {
+            .then(data => {
+                if (data.message) {
+                    toast.error(data.message);
+                }
+            });
+
+        fetch(`http://localhost:5000/tool/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             },
             body: JSON.stringify({ available_quantity: newQuantity })
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                toast.success("Order placed successfully. Check your dashboard to confirm your order and pay.")
-                refetch();
+                if (data.message) {
+                    toast.error(data.message);
+                }
+                else {
+                    console.log(data);
+                    toast.success("Order placed successfully. Check your dashboard to confirm your order and pay.")
+                    refetch();
+                }
             });
     }
 

@@ -1,13 +1,17 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 
 const CheckoutForm = ({ order }) => {
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
+
+    const [user] = useAuthState(auth);
 
     const { quantity, per_unit_price, email, _id } = order;
     const price = quantity * per_unit_price;
@@ -19,7 +23,7 @@ const CheckoutForm = ({ order }) => {
     const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
-        fetch(`https://tools-manufacturer.herokuapp.com/create-payment-intent`, {
+        fetch(`http://localhost:5000/create-payment-intent`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -95,20 +99,23 @@ const CheckoutForm = ({ order }) => {
             setStripeError('');
             setSuccess("Payment successful!");
             setTransactionID(paymentIntent.id);
-            fetch(`https://tools-manufacturer.herokuapp.com/order/${_id}`, {
+            fetch(`http://localhost:5000/order/${_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    'From': user.email
                 },
                 body: JSON.stringify({ transactionId: paymentIntent.id })
             })
                 .then(res => {
-                    if (res.status === 401 || res.status === 403) {
+                    if (res.status !== 200) {
                         signOut(auth);
                         localStorage.removeItem('accessToken');
                         navigate('/login');
+                        toast.error(`Error ${res.status}`)
                     }
+                    toast.success("Payment status updated.")
                     return res.json()
                 }
                 )

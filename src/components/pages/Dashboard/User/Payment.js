@@ -2,8 +2,10 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../../../../firebase.init';
 import FailedToFetch from '../../../shared/FailedToFetch';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
@@ -11,22 +13,26 @@ import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe('pk_test_51L0hSZCsqEIAHtmewln439tN1kcj7zFfi8DLN9NpThjN9dTLGGeheAj6yNaOGpBbodw14i2XgAYPQuVCsxVUQSIS007hYq6fD4');
 
+
 const Payment = () => {
+    const [user] = useAuthState(auth);
     const navigate = useNavigate();
     const { id } = useParams();
     const { isLoading, error, data: order } = useQuery(['payment', id], () =>
-        fetch(`https://tools-manufacturer.herokuapp.com/order/${id}`, {
+        fetch(`http://localhost:5000/order/${id}`, {
             method: 'GET',
             headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'From': user.email
             }
         }).then(res => {
-            if (res.status === 401 || res.status === 403) {
+            if (res.status !== 200) {
                 signOut(auth);
                 localStorage.removeItem('accessToken');
                 navigate('/login');
+                return toast.error(`Error ${res.status}`);
             }
-            return res.json()
+            return res.json();
         }
         )
     );
@@ -34,6 +40,7 @@ const Payment = () => {
         return <LoadingSpinner></LoadingSpinner>
     };
     if (error) {
+        console.log();
         return <FailedToFetch></FailedToFetch>
     };
     return (

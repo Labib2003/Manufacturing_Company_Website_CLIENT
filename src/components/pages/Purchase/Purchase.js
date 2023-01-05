@@ -25,9 +25,7 @@ const Purchase = () => {
     data: tool,
     refetch,
   } = useQuery("purchaseTool", () =>
-    fetch(`https://ironworks-backend.onrender.com/tool/${id}`).then((res) =>
-      res.json()
-    )
+    fetch(`http://localhost:5000/api/v1/tools/${id}`).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -38,54 +36,56 @@ const Purchase = () => {
 
   const handleOrder = (event) => {
     event.preventDefault();
+
     const order = {
       email: user.email,
-      per_unit_price: tool.per_unit_price,
-      name: tool.name,
       phone: phoneRef.current.value,
       address: addressRef.current.value,
-      quantity: quantityRef.current.value,
+      product_name: tool.data.name,
+      quantity: quantityRef.current.valueAsNumber,
+      per_unit_price: tool.data.per_unit_price,
       paid: false,
       transactionId: "",
     };
+
     const newQuantity =
-      parseInt(tool.available_quantity) - parseInt(quantityRef.current.value);
-    fetch("https://ironworks-backend.onrender.com/order", {
+      tool.data.available_quantity - quantityRef.current.valueAsNumber;
+
+    fetch("http://localhost:5000/api/v1/order", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
       body: JSON.stringify(order),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message) {
-          toast.error(data.message);
-        }
-      });
+        if (!data.success) throw new Error(data.message);
 
-    fetch(`https://ironworks-backend.onrender.com/tool/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
-      },
-      body: JSON.stringify({ available_quantity: newQuantity }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.message) {
-          toast.error(data.message);
-        } else {
-          console.log(data);
-          toast.success(
-            "Order placed successfully. Check your dashboard to confirm your order and pay."
-          );
-          refetch();
-        }
+        fetch(`http://localhost:5000/api/v1/tools/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({ available_quantity: newQuantity }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) throw new Error(data.message);
+            
+            else {
+              toast.success(
+                "Order placed successfully. Check your dashboard to confirm your order and pay."
+              );
+              refetch();
+            }
+          })
+          .catch((error) => toast.error(error.message));
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   };
 
@@ -94,16 +94,17 @@ const Purchase = () => {
       <div className="hero-content flex-col lg:flex-row">
         <div className="text-center md:text-left lg:mr-10">
           <h1 className="text-5xl font-semibold leading-normal mb-5">
-            You are purchasing: <span className="font-bold">{tool.name}</span>
+            You are purchasing:{" "}
+            <span className="font-bold">{tool?.data.name}</span>
           </h1>
           <p className="py-5 text-2xl">
-            Per Unit Price: ${tool.per_unit_price}
+            Per Unit Price: ${tool?.data.per_unit_price}
           </p>
           <p className="py-5 text-2xl">
-            Minimum Order Quantity: {tool.min_order_quantity}
+            Minimum Order Quantity: {tool?.data.min_order_quantity}
           </p>
           <p className="py-5 text-2xl">
-            Available Quantity: {tool.available_quantity}
+            Available Quantity: {tool?.data.available_quantity}
           </p>
         </div>
         <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
@@ -139,7 +140,7 @@ const Purchase = () => {
                   <span className="label-text">Phone</span>
                 </label>
                 <input
-                  type="number"
+                  type="phone"
                   ref={phoneRef}
                   placeholder="Your phone number"
                   className="input input-bordered"
@@ -151,7 +152,7 @@ const Purchase = () => {
                   <span className="label-text">Address</span>
                 </label>
                 <input
-                  type="text"
+                  type="address"
                   ref={addressRef}
                   placeholder="Delivery address"
                   className="input input-bordered"
@@ -165,9 +166,9 @@ const Purchase = () => {
                 <input
                   type="number"
                   ref={quantityRef}
-                  placeholder={parseInt(tool.min_order_quantity)}
-                  min={parseInt(tool.min_order_quantity)}
-                  max={parseInt(tool.available_quantity)}
+                  defaultValue={tool?.data.min_order_quantity}
+                  min={parseInt(tool?.data.min_order_quantity)}
+                  max={parseInt(tool?.data.available_quantity)}
                   className="input input-bordered w-full"
                   required
                 />

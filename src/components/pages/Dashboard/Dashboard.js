@@ -17,19 +17,19 @@ const Dashboard = () => {
     error,
     data: userFromDb,
   } = useQuery("userFromDb", () =>
-    fetch(`https://ironworks-backend.onrender.com/user/${user.email}`, {
+    fetch(`http://localhost:5000/api/v1/users/${user.email}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         From: user.email,
       },
     }).then((res) => {
-      if (res.status !== 200) {
+      /* if (res.status !== 200) {
         signOut(auth);
         localStorage.removeItem("accessToken");
         navigate("/login");
         return toast.error(`Error ${res.status}`);
-      }
+      } */
       return res.json();
     })
   );
@@ -55,7 +55,7 @@ const Dashboard = () => {
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 overflow-y-auto w-52 text-base-content">
-            {userFromDb.admin ? (
+            {userFromDb.data.isAdmin ? (
               <>
                 <li>
                   <Link to="/dashboard">My Profile</Link>

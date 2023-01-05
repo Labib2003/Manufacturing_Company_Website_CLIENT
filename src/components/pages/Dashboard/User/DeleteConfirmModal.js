@@ -12,23 +12,19 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
 
   const handleDelete = (id) => {
     setOrder(null);
-    fetch(`https://ironworks-backend.onrender.com/order/${id}`, {
+    fetch(`http://localhost:5000/api/v1/orders/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
-    }).then((res) => {
-      if (res.status !== 200) {
-        signOut(auth);
-        localStorage.removeItem("accessToken");
-        navigate("/login");
-        toast.error(`Error ${res.status}`);
-      }
-      refetch();
-      toast.success("Order cancelled.");
-      return res.json();
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success) throw new Error(data.message);
+        toast.success("Order cancelled successfully");
+        refetch();
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (

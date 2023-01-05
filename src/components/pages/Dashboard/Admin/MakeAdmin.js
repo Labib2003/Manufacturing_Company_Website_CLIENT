@@ -19,21 +19,12 @@ const MakeAdmin = () => {
     data: users,
     refetch,
   } = useQuery("users", () =>
-    fetch("https://ironworks-backend.onrender.com/users", {
+    fetch("http://localhost:5000/api/v1/users", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
-    }).then((res) => {
-      if (res.status !== 200) {
-        signOut(auth);
-        localStorage.removeItem("accessToken");
-        navigate("/login");
-        return toast.error(`Error ${res.status}`);
-      }
-      return res.json();
-    })
+    }).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -55,7 +46,7 @@ const MakeAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {users.data.map((user, index) => (
               <UserRow
                 key={user._id}
                 user={user}

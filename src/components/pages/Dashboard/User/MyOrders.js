@@ -25,21 +25,12 @@ const MyOrders = () => {
     data: orders,
     refetch,
   } = useQuery("orders", () =>
-    fetch(`https://ironworks-backend.onrender.com/orders/${email}`, {
+    fetch(`http://localhost:5000/api/v1/orders/${email}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
-    }).then((res) => {
-      if (res.status !== 200) {
-        signOut(auth);
-        localStorage.removeItem("accessToken");
-        navigate("/login");
-        return toast.error(`Error ${res.status}`);
-      }
-      return res.json();
-    })
+    }).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -64,7 +55,7 @@ const MyOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
+            {orders.data.map((order, index) => (
               <OrdersRow
                 key={order._id}
                 order={order}

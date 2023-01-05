@@ -5,52 +5,42 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../../../firebase.init";
 
-const UserRow = ({ user: user_, index, refetch }) => {
+const UserRow = ({ user, index, refetch }) => {
   const navigate = useNavigate();
-  const [user] = useAuthState(auth);
 
   const makeAdmin = (email) => {
-    fetch(`https://ironworks-backend.onrender.com/user/admin/${email}`, {
-      method: "PUT",
+    fetch(`http://localhost:5000/api/v1/users/admin/${email}`, {
+      method: "PATCH",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
-      body: JSON.stringify({ user: email }),
     })
-      .then((res) => {
-        if (res.status !== 200) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-          navigate("/login");
-          return toast.error(`Error ${res.status}`);
-        }
-        toast.success("User has been promoted to admin");
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (!data.success) throw new Error(data.message);
+        toast.error("User promoted to admin");
         refetch();
-      });
+      })
+      .catch((error) => toast.error(error.message));
   };
   return (
     <tr>
       <td>{index + 1}</td>
-      <td>{user_.email}</td>
+      <td>{user.email}</td>
       <td>
-        {user_?.admin ? (
+        {user?.isAdmin ? (
           <p className="text-lime-500">Admin</p>
         ) : (
           <p className="text-secondary">User</p>
         )}
       </td>
       <td>
-        {user_?.admin ? (
+        {user?.isAdmin ? (
           <p className="text-lime-500">Already Admin</p>
         ) : (
           <button
-            onClick={() => makeAdmin(user_.email)}
+            onClick={() => makeAdmin(user.email)}
             className="btn btn-success"
           >
             Make Admin

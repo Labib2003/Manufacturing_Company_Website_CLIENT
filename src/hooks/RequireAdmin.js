@@ -11,23 +11,24 @@ const RequireAdmin = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
+
   const {
     isLoading,
     error,
     data: userFromDb,
   } = useQuery("userFromDb", () =>
-    fetch(`https://ironworks-backend.onrender.com/user/${user.email}`, {
+    fetch(`http://localhost:5000/api/v1/users/${user.email}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         From: user.email,
       },
     }).then((res) => {
-      if (res.status === 401 || res.status === 403) {
+      /* if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");
         navigate("/login");
-      }
+      } */
       return res.json();
     })
   );
@@ -38,7 +39,7 @@ const RequireAdmin = ({ children }) => {
     return <FailedToFetch></FailedToFetch>;
   }
 
-  const admin = userFromDb?.admin;
+  const admin = userFromDb?.data.isAdmin;
 
   if (!user || !admin) {
     signOut(auth);

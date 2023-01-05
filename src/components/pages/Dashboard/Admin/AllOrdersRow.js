@@ -10,10 +10,10 @@ const AllOrdersRow = ({ order, index, refetch }) => {
 
   const [user] = useAuthState(auth);
 
-  const { _id, name, email, quantity, paid, shipped } = order;
+  const { _id, product_name, email, quantity, paid, shipped } = order;
 
   const handleShipping = (id) => {
-    fetch(`https://ironworks-backend.onrender.com/order/ship/${id}`, {
+    fetch(`http://localhost:5000/api/v1/order/ship/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -22,12 +22,12 @@ const AllOrdersRow = ({ order, index, refetch }) => {
       },
     })
       .then((res) => {
-        if (res.status !== 200) {
+        /* if (res.status !== 200) {
           signOut(auth);
           localStorage.removeItem("accessToken");
           navigate("/login");
           toast.error(`Error ${res.status}`);
-        }
+        } */
         toast.success("Order is on the way to the customer.");
         return res.json();
       })
@@ -37,7 +37,7 @@ const AllOrdersRow = ({ order, index, refetch }) => {
   return (
     <tr>
       <td>{index + 1}</td>
-      <td>{name}</td>
+      <td>{product_name}</td>
       <td>{email}</td>
       <td>{quantity}</td>
       <td>
@@ -60,7 +60,7 @@ const AllOrdersRow = ({ order, index, refetch }) => {
             </button>
           )
         ) : (
-          <p className="text-red-500">Payment Pending</p>
+          <p className="text-red-500">Waiting for payment</p>
         )}
       </td>
     </tr>

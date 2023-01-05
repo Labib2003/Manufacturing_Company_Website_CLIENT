@@ -14,9 +14,7 @@ const ManageProducts = () => {
     data: products,
     refetch,
   } = useQuery("products", () =>
-    fetch("https://ironworks-backend.onrender.com/tools").then((res) =>
-      res.json()
-    )
+    fetch("http://localhost:5000/api/v1/tools").then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -39,7 +37,7 @@ const ManageProducts = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
+            {products.data.map((product, index) => (
               <ProductRow
                 key={product._id}
                 product={product}

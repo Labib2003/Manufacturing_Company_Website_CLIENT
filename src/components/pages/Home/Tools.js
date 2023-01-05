@@ -11,24 +11,26 @@ const Tools = () => {
     error,
     data: tools,
   } = useQuery("tools", () =>
-    fetch("https://ironworks-backend.onrender.com/tools").then((res) =>
+    fetch("http://localhost:5000/api/v1/tools").then((res) =>
       res.json()
     )
   );
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (error) {
     return <FailedToFetch></FailedToFetch>;
   }
-  const firstSix = tools.slice(0, 6);
+  const firstEight = tools.data.slice(0, 8);
+
   return (
     <div className="mb-32 grid place-items-center">
       <h1 className="text-3xl font-bold mb-5">
-        Our Product Line (Total Product: {tools.length})
+        Our Product Line (Total Product: {tools.data.length})
       </h1>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-5">
-        {firstSix.map((tool) => (
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 mb-5">
+        {firstEight.map((tool) => (
           <Tool key={tool._id} tool={tool}></Tool>
         ))}
       </div>

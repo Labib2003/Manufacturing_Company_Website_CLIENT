@@ -26,15 +26,15 @@ const AddNewProduct = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
+
     fetch(`https://api.imgbb.com/1/upload?key=${imageUploadKey}`, {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
-          const img = data.data.url;
+          const img = data.data.thumb.url;
           const newProduct = {
             name: nameRef.current.value,
             image: img,
@@ -43,27 +43,21 @@ const AddNewProduct = () => {
             available_quantity: availableRef.current.value,
             per_unit_price: priceRef.current.value,
           };
-          fetch(`https://ironworks-backend.onrender.com/tools`, {
+          fetch(`http://localhost:5000/api/v1/tools`, {
             method: "POST",
             headers: {
               "Content-type": "application/json; charset=UTF-8",
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-              From: user.email,
             },
             body: JSON.stringify(newProduct),
           })
-            .then((res) => {
-              if (res.status !== 200) {
-                signOut(auth);
-                localStorage.removeItem("accessToken");
-                navigate("/login");
-                return toast.error(`Error ${res.status}`);
-              }
-              toast.success("Item successfully added!");
+            .then((res) => res.json())
+            .then((data) => {
+              if (!data.success) throw new Error(data.message);
+              toast.success("Item added successfully");
               navigate("/");
-              return res.json();
             })
-            .then((data) => console.log(data));
+            .catch((error) => toast.error(error.message));
         }
       });
   };

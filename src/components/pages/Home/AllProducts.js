@@ -10,9 +10,7 @@ const AllProducts = () => {
     error,
     data: tools,
   } = useQuery("tools", () =>
-    fetch("https://ironworks-backend.onrender.com/tools").then((res) =>
-      res.json()
-    )
+    fetch("http://localhost:5000/api/v1/tools").then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -23,8 +21,8 @@ const AllProducts = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-5 text-center">All Products</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-32">
-        {tools.map((tool) => (
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 mb-32">
+        {tools.data.map((tool) => (
           <Tool key={tool._id} tool={tool}></Tool>
         ))}
       </div>

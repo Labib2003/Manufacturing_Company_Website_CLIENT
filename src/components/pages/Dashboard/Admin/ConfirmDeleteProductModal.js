@@ -13,23 +13,19 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
 
   const handleDelete = (id) => {
     setProduct(null);
-    fetch(`https://ironworks-backend.onrender.com/tool/${id}`, {
+    fetch(`http://localhost:5000/api/v1/tools/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
-    }).then((res) => {
-      if (res.status !== 200) {
-        signOut(auth);
-        localStorage.removeItem("accessToken");
-        navigate("/login");
-        return toast.error(`Error ${res.status}`);
-      }
-      refetch();
-      toast.success("Item deleted.");
-      return res.json();
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success) throw new Error(data.message);
+        toast.success("Item deleted successfully");
+        refetch();
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (

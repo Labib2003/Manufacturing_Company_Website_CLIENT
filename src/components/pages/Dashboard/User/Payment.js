@@ -24,19 +24,19 @@ const Payment = () => {
     error,
     data: order,
   } = useQuery(["payment", id], () =>
-    fetch(`https://ironworks-backend.onrender.com/order/${id}`, {
+    fetch(`http://localhost:5000/api/v1/order/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         From: user.email,
       },
     }).then((res) => {
-      if (res.status !== 200) {
+      /* if (res.status !== 200) {
         signOut(auth);
         localStorage.removeItem("accessToken");
         navigate("/login");
         return toast.error(`Error ${res.status}`);
-      }
+      } */
       return res.json();
     })
   );

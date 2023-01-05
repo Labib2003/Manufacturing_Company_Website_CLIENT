@@ -10,7 +10,7 @@ const CustomerReviews = () => {
     error,
     data: reviews,
   } = useQuery("reviews", () =>
-    fetch("https://ironworks-backend.onrender.com/reviews", {
+    fetch("http://localhost:5000/api/v1/reviews", {
       method: "GET",
     }).then((res) => res.json())
   );
@@ -24,7 +24,7 @@ const CustomerReviews = () => {
     <div className="mb-32">
       <h1 className="text-5xl font-bold text-center mb-10">Customer Reviews</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {reviews.map((review) => (
+        {reviews.data.map((review) => (
           <CustomerReview key={review._id} review={review}></CustomerReview>
         ))}
       </div>

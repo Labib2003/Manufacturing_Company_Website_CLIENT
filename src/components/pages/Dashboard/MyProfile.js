@@ -1,7 +1,9 @@
+import { success } from "daisyui/src/colors";
 import { signOut } from "firebase/auth";
 import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import auth from "../../../firebase.init";
 
 const MyProfile = () => {
@@ -19,25 +21,20 @@ const MyProfile = () => {
       address: addressRef.current.value,
     };
 
-    fetch(`https://ironworks-backend.onrender.com/user/${user.email}`, {
-      method: "PUT",
+    fetch(`http://localhost:5000/api/v1/users/${user.email}`, {
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(updatedProfile),
     })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-          navigate("/login");
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-      });
+        if (!data.success) throw new Error(data.message);
+        toast.success("Profile updated successfully");
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -71,7 +68,7 @@ const MyProfile = () => {
             <span className="label-text">Phone Number (optional)</span>
           </label>
           <input
-            type="number"
+            type="phone"
             ref={phoneRef}
             placeholder="Enter your number here."
             className="input input-bordered w-full"

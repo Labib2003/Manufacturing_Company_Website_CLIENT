@@ -23,7 +23,7 @@ const CheckoutForm = ({ order }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch(`https://ironworks-backend.onrender.com/create-payment-intent`, {
+    fetch(`http://localhost:5000/api/v1/create-payment-intent`, {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -32,11 +32,11 @@ const CheckoutForm = ({ order }) => {
       body: JSON.stringify({ price: price }),
     })
       .then((res) => {
-        if (res.status === 401 || res.status === 403) {
+        /* if (res.status === 401 || res.status === 403) {
           signOut(auth);
           localStorage.removeItem("accessToken");
           navigate("/login");
-        }
+        } */
         return res.json();
       })
       .then((data) => {
@@ -95,7 +95,7 @@ const CheckoutForm = ({ order }) => {
       setStripeError("");
       setSuccess("Payment successful!");
       setTransactionID(paymentIntent.id);
-      fetch(`https://ironworks-backend.onrender.com/order/${_id}`, {
+      fetch(`http://localhost:5000/api/v1/order/${_id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -105,12 +105,12 @@ const CheckoutForm = ({ order }) => {
         body: JSON.stringify({ transactionId: paymentIntent.id }),
       })
         .then((res) => {
-          if (res.status !== 200) {
+          /* if (res.status !== 200) {
             signOut(auth);
             localStorage.removeItem("accessToken");
             navigate("/login");
             toast.error(`Error ${res.status}`);
-          }
+          } */
           toast.success("Payment status updated.");
           return res.json();
         })

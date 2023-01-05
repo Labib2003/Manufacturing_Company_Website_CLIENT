@@ -18,18 +18,17 @@ const ManageAllOrders = () => {
     data: allOrders,
     refetch,
   } = useQuery("allOrders", () =>
-    fetch("https://ironworks-backend.onrender.com/orders", {
+    fetch("http://localhost:5000/api/v1/orders", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
       },
     }).then((res) => {
-      if (res.status === 401 || res.status === 403) {
+      /* if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");
         navigate("/login");
-      }
+      } */
       return res.json();
     })
   );
@@ -55,7 +54,7 @@ const ManageAllOrders = () => {
             </tr>
           </thead>
           <tbody>
-            {allOrders.map((order, index) => (
+            {allOrders.data.map((order, index) => (
               <AllOrdersRow
                 key={order._id}
                 order={order}

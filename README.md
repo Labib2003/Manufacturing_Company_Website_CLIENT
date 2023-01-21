@@ -50,6 +50,6 @@ This is a site made for an imaginary company called IronWorks who manufacturers 
 - Dotenv
 - Stripe
 
-## Random fact about this project 🙂:
+## Random fact about this project 🙂
 
 There was a requirement about having 2 unique features in the homepage. Hence the non functional contact us section and the random map.

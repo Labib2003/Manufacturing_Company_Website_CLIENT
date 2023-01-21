@@ -1,6 +1,6 @@
 # Ironworks (A Manufacturing Company Website)
 
-This project was the last assignment of the [Programming Hero Web Development Course](https://web.programming-hero.com). Its a full stack manufacturer company website with admin and normal user roles where users can order products in bulk.
+This project is the `client side` code of the last assignment of the [Programming Hero Web Development Course](https://web.programming-hero.com). Its a full stack manufacturer company website with admin and normal user roles where users can order products in bulk.
 
 ## Relevant Links
 

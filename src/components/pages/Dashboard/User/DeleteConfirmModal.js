@@ -12,7 +12,7 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
 
   const handleDelete = (id) => {
     setOrder(null);
-    fetch(`http://localhost:5000/api/v1/orders/${id}`, {
+    fetch(`https://ironworks-backend.onrender.com/api/v1/orders/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

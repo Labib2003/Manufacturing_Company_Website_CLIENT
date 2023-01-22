@@ -11,7 +11,7 @@ const Tools = () => {
     error,
     data: tools,
   } = useQuery("tools", () =>
-    fetch("http://localhost:5000/api/v1/tools").then((res) =>
+    fetch("https://ironworks-backend.onrender.com/api/v1/tools").then((res) =>
       res.json()
     )
   );

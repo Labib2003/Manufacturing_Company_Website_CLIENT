@@ -23,20 +23,18 @@ const CheckoutForm = ({ order }) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/create-payment-intent`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify({ price: price }),
-    })
+    fetch(
+      `https://ironworks-backend.onrender.com/api/v1/orders/create-payment-intent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({ price: price }),
+      }
+    )
       .then((res) => {
-        /* if (res.status === 401 || res.status === 403) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-          navigate("/login");
-        } */
         return res.json();
       })
       .then((data) => {
@@ -95,12 +93,11 @@ const CheckoutForm = ({ order }) => {
       setStripeError("");
       setSuccess("Payment successful!");
       setTransactionID(paymentIntent.id);
-      fetch(`http://localhost:5000/api/v1/order/${_id}`, {
-        method: "PUT",
+      fetch(`https://ironworks-backend.onrender.com/api/v1/orders/${_id}`, {
+        method: "PATCH",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          From: user.email,
         },
         body: JSON.stringify({ transactionId: paymentIntent.id }),
       })

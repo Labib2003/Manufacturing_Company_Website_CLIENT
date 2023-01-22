@@ -9,13 +9,16 @@ const UserRow = ({ user, index, refetch }) => {
   const navigate = useNavigate();
 
   const makeAdmin = (email) => {
-    fetch(`http://localhost:5000/api/v1/users/admin/${email}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://ironworks-backend.onrender.com/api/v1/users/admin/${email}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) throw new Error(data.message);

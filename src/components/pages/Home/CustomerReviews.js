@@ -10,7 +10,7 @@ const CustomerReviews = () => {
     error,
     data: reviews,
   } = useQuery("reviews", () =>
-    fetch("http://localhost:5000/api/v1/reviews", {
+    fetch("https://ironworks-backend.onrender.com/api/v1/reviews", {
       method: "GET",
     }).then((res) => res.json())
   );

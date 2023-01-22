@@ -19,7 +19,7 @@ const MakeAdmin = () => {
     data: users,
     refetch,
   } = useQuery("users", () =>
-    fetch("http://localhost:5000/api/v1/users", {
+    fetch("https://ironworks-backend.onrender.com/api/v1/users", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -13,7 +13,7 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
 
   const handleDelete = (id) => {
     setProduct(null);
-    fetch(`http://localhost:5000/api/v1/tools/${id}`, {
+    fetch(`https://ironworks-backend.onrender.com/api/v1/tools/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

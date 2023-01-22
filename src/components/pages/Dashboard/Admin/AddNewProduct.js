@@ -43,7 +43,7 @@ const AddNewProduct = () => {
             available_quantity: availableRef.current.value,
             per_unit_price: priceRef.current.value,
           };
-          fetch(`http://localhost:5000/api/v1/tools`, {
+          fetch(`https://ironworks-backend.onrender.com/api/v1/tools`, {
             method: "POST",
             headers: {
               "Content-type": "application/json; charset=UTF-8",

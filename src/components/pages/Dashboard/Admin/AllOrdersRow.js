@@ -13,7 +13,7 @@ const AllOrdersRow = ({ order, index, refetch }) => {
   const { _id, product_name, email, quantity, paid, shipped } = order;
 
   const handleShipping = (id) => {
-    fetch(`http://localhost:5000/api/v1/order/ship/${id}`, {
+    fetch(`https://ironworks-backend.onrender.com/api/v1/order/ship/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json; charset=UTF-8",

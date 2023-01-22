@@ -23,7 +23,7 @@ const AddReview = () => {
       stars: starsRef.current.valueAsNumber,
       body: reviewRef.current.value,
     };
-    fetch("http://localhost:5000/api/v1/reviews", {
+    fetch("https://ironworks-backend.onrender.com/api/v1/reviews", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",

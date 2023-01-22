@@ -8,7 +8,7 @@ const useToken = (user) => {
   };
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/api/v1/users/${email}`, {
+      fetch(`https://ironworks-backend.onrender.com/api/v1/users/${email}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

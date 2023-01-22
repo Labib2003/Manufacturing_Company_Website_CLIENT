@@ -17,7 +17,7 @@ const RequireAdmin = ({ children }) => {
     error,
     data: userFromDb,
   } = useQuery("userFromDb", () =>
-    fetch(`http://localhost:5000/api/v1/users/${user.email}`, {
+    fetch(`https://ironworks-backend.onrender.com/api/v1/users/${user.email}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

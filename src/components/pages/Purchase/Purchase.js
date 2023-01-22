@@ -25,7 +25,9 @@ const Purchase = () => {
     data: tool,
     refetch,
   } = useQuery("purchaseTool", () =>
-    fetch(`http://localhost:5000/api/v1/tools/${id}`).then((res) => res.json())
+    fetch(`https://ironworks-backend.onrender.com/api/v1/tools/${id}`).then(
+      (res) => res.json()
+    )
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -51,7 +53,7 @@ const Purchase = () => {
     const newQuantity =
       tool.data.available_quantity - quantityRef.current.valueAsNumber;
 
-    fetch("http://localhost:5000/api/v1/order", {
+    fetch("https://ironworks-backend.onrender.com/api/v1/orders", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -63,7 +65,7 @@ const Purchase = () => {
       .then((data) => {
         if (!data.success) throw new Error(data.message);
 
-        fetch(`http://localhost:5000/api/v1/tools/${id}`, {
+        fetch(`https://ironworks-backend.onrender.com/api/v1/tools/${id}`, {
           method: "PATCH",
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -73,8 +75,8 @@ const Purchase = () => {
         })
           .then((res) => res.json())
           .then((data) => {
+            console.log(data);
             if (!data.success) throw new Error(data.message);
-            
             else {
               toast.success(
                 "Order placed successfully. Check your dashboard to confirm your order and pay."
@@ -95,16 +97,16 @@ const Purchase = () => {
         <div className="text-center md:text-left lg:mr-10">
           <h1 className="text-5xl font-semibold leading-normal mb-5">
             You are purchasing:{" "}
-            <span className="font-bold">{tool?.data.name}</span>
+            <span className="font-bold">{tool?.data?.name}</span>
           </h1>
           <p className="py-5 text-2xl">
-            Per Unit Price: ${tool?.data.per_unit_price}
+            Per Unit Price: ${tool?.data?.per_unit_price}
           </p>
           <p className="py-5 text-2xl">
-            Minimum Order Quantity: {tool?.data.min_order_quantity}
+            Minimum Order Quantity: {tool?.data?.min_order_quantity}
           </p>
           <p className="py-5 text-2xl">
-            Available Quantity: {tool?.data.available_quantity}
+            Available Quantity: {tool?.data?.available_quantity}
           </p>
         </div>
         <div className="card flex-shrink-0 w-full lg:w-1/2 shadow-2xl bg-base-100">
@@ -166,9 +168,9 @@ const Purchase = () => {
                 <input
                   type="number"
                   ref={quantityRef}
-                  defaultValue={tool?.data.min_order_quantity}
-                  min={parseInt(tool?.data.min_order_quantity)}
-                  max={parseInt(tool?.data.available_quantity)}
+                  defaultValue={tool?.data?.min_order_quantity}
+                  min={parseInt(tool?.data?.min_order_quantity)}
+                  max={parseInt(tool?.data?.available_quantity)}
                   className="input input-bordered w-full"
                   required
                 />

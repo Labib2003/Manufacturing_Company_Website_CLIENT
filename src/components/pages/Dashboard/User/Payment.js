@@ -24,21 +24,13 @@ const Payment = () => {
     error,
     data: order,
   } = useQuery(["payment", id], () =>
-    fetch(`http://localhost:5000/api/v1/order/${id}`, {
+    fetch(`https://ironworks-backend.onrender.com/api/v1/orders/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         From: user.email,
       },
-    }).then((res) => {
-      /* if (res.status !== 200) {
-        signOut(auth);
-        localStorage.removeItem("accessToken");
-        navigate("/login");
-        return toast.error(`Error ${res.status}`);
-      } */
-      return res.json();
-    })
+    }).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -52,21 +44,21 @@ const Payment = () => {
       <div className="card shadow-xl mb-10">
         <div className="card-body">
           <p className="text-3xl font-bold mb-5">
-            Please pay for your {order.name} order
+            Please pay for your {order?.data.product_name} order
           </p>
-          <p className="text-xl mb-3">Order Quantity: {order.quantity}</p>
+          <p className="text-xl mb-3">Order Quantity: {order.data.quantity}</p>
           <p className="text-xl mb-3">
-            Per Unit price: ${order.per_unit_price}
+            Per Unit price: ${order.data.per_unit_price}
           </p>
           <p className="text-xl mb-3">
-            Total price: ${order.quantity * order.per_unit_price}
+            Total price: ${order.data.quantity * order.data.per_unit_price}
           </p>
         </div>
       </div>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
           <Elements stripe={stripePromise}>
-            <CheckoutForm order={order} />
+            <CheckoutForm order={order.data} />
           </Elements>
         </div>
       </div>

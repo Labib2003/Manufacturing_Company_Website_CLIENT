@@ -10,7 +10,9 @@ const AllProducts = () => {
     error,
     data: tools,
   } = useQuery("tools", () =>
-    fetch("http://localhost:5000/api/v1/tools").then((res) => res.json())
+    fetch("https://ironworks-backend.onrender.com/api/v1/tools").then((res) =>
+      res.json()
+    )
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;

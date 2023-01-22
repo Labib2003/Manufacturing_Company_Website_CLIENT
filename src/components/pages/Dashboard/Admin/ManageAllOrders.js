@@ -18,7 +18,7 @@ const ManageAllOrders = () => {
     data: allOrders,
     refetch,
   } = useQuery("allOrders", () =>
-    fetch("http://localhost:5000/api/v1/orders", {
+    fetch("https://ironworks-backend.onrender.com/api/v1/orders", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

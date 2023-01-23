@@ -43,14 +43,17 @@ const AddNewProduct = () => {
             available_quantity: availableRef.current.value,
             per_unit_price: priceRef.current.value,
           };
-          fetch(`https://ironworks-backend.onrender.com/api/v1/tools`, {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-            body: JSON.stringify(newProduct),
-          })
+          fetch(
+            `https://manufacturing-company-website-server.vercel.app/api/v1/tools`,
+            {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+              },
+              body: JSON.stringify(newProduct),
+            }
+          )
             .then((res) => res.json())
             .then((data) => {
               if (!data.success) throw new Error(data.message);

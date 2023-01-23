@@ -24,7 +24,7 @@ const CheckoutForm = ({ order }) => {
 
   useEffect(() => {
     fetch(
-      `https://ironworks-backend.onrender.com/api/v1/orders/create-payment-intent`,
+      `https://manufacturing-company-website-server.vercel.app/api/v1/orders/create-payment-intent`,
       {
         method: "POST",
         headers: {
@@ -93,14 +93,17 @@ const CheckoutForm = ({ order }) => {
       setStripeError("");
       setSuccess("Payment successful!");
       setTransactionID(paymentIntent.id);
-      fetch(`https://ironworks-backend.onrender.com/api/v1/orders/${_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify({ transactionId: paymentIntent.id }),
-      })
+      fetch(
+        `https://manufacturing-company-website-server.vercel.app/api/v1/orders/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({ transactionId: paymentIntent.id }),
+        }
+      )
         .then((res) => {
           /* if (res.status !== 200) {
             signOut(auth);

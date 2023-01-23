@@ -13,14 +13,17 @@ const AllOrdersRow = ({ order, index, refetch }) => {
   const { _id, product_name, email, quantity, paid, shipped } = order;
 
   const handleShipping = (id) => {
-    fetch(`https://ironworks-backend.onrender.com/api/v1/order/ship/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
-      },
-    })
+    fetch(
+      `https://manufacturing-company-website-server.vercel.app/api/v1/order/ship/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          From: user.email,
+        },
+      }
+    )
       .then((res) => {
         /* if (res.status !== 200) {
           signOut(auth);

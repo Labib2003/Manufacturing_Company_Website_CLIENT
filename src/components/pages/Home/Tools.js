@@ -11,9 +11,9 @@ const Tools = () => {
     error,
     data: tools,
   } = useQuery("tools", () =>
-    fetch("https://ironworks-backend.onrender.com/api/v1/tools").then((res) =>
-      res.json()
-    )
+    fetch(
+      "https://manufacturing-company-website-server.vercel.app/api/v1/tools"
+    ).then((res) => res.json())
   );
 
   if (isLoading) {

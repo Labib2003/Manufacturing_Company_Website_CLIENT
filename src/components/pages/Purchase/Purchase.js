@@ -25,9 +25,9 @@ const Purchase = () => {
     data: tool,
     refetch,
   } = useQuery("purchaseTool", () =>
-    fetch(`https://ironworks-backend.onrender.com/api/v1/tools/${id}`).then(
-      (res) => res.json()
-    )
+    fetch(
+      `https://manufacturing-company-website-server.vercel.app/api/v1/tools/${id}`
+    ).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -53,26 +53,32 @@ const Purchase = () => {
     const newQuantity =
       tool.data.available_quantity - quantityRef.current.valueAsNumber;
 
-    fetch("https://ironworks-backend.onrender.com/api/v1/orders", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(order),
-    })
+    fetch(
+      "https://manufacturing-company-website-server.vercel.app/api/v1/orders",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(order),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) throw new Error(data.message);
 
-        fetch(`https://ironworks-backend.onrender.com/api/v1/tools/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-          body: JSON.stringify({ available_quantity: newQuantity }),
-        })
+        fetch(
+          `https://manufacturing-company-website-server.vercel.app/api/v1/tools/${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify({ available_quantity: newQuantity }),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

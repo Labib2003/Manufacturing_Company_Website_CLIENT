@@ -3,7 +3,7 @@ import React from 'react';
 const FailedToFetch = () => {
     return (
         <div className='grid h-screen place-items-center text-xl font-semibold'>
-            <p>Failed To fetch data from the server. Please check your internet connection.</p>
+            <p>Server did not respond. Please check your internet or try later.</p>
         </div>
     );
 };

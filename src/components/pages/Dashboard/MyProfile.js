@@ -21,14 +21,17 @@ const MyProfile = () => {
       address: addressRef.current.value,
     };
 
-    fetch(`https://ironworks-backend.onrender.com/api/v1/users/${user.email}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(updatedProfile),
-    })
+    fetch(
+      `https://manufacturing-company-website-server.vercel.app/api/v1/users/${user.email}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(updatedProfile),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) throw new Error(data.message);

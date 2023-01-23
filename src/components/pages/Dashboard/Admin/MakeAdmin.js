@@ -19,12 +19,15 @@ const MakeAdmin = () => {
     data: users,
     refetch,
   } = useQuery("users", () =>
-    fetch("https://ironworks-backend.onrender.com/api/v1/users", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => res.json())
+    fetch(
+      "https://manufacturing-company-website-server.vercel.app/api/v1/users",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;

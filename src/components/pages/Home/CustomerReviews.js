@@ -10,9 +10,12 @@ const CustomerReviews = () => {
     error,
     data: reviews,
   } = useQuery("reviews", () =>
-    fetch("https://ironworks-backend.onrender.com/api/v1/reviews", {
-      method: "GET",
-    }).then((res) => res.json())
+    fetch(
+      "https://manufacturing-company-website-server.vercel.app/api/v1/reviews",
+      {
+        method: "GET",
+      }
+    ).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;

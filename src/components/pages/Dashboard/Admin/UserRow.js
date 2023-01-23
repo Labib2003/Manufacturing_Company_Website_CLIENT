@@ -10,7 +10,7 @@ const UserRow = ({ user, index, refetch }) => {
 
   const makeAdmin = (email) => {
     fetch(
-      `https://ironworks-backend.onrender.com/api/v1/users/admin/${email}`,
+      `https://manufacturing-company-website-server.vercel.app/api/v1/users/admin/${email}`,
       {
         method: "PATCH",
         headers: {

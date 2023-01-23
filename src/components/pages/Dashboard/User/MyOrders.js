@@ -26,7 +26,7 @@ const MyOrders = () => {
     refetch,
   } = useQuery("orders", () =>
     fetch(
-      `https://ironworks-backend.onrender.com/api/v1/orders/byEmail/${email}`,
+      `https://manufacturing-company-website-server.vercel.app/api/v1/orders/byEmail/${email}`,
       {
         method: "GET",
         headers: {

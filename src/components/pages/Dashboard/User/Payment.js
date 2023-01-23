@@ -24,13 +24,16 @@ const Payment = () => {
     error,
     data: order,
   } = useQuery(["payment", id], () =>
-    fetch(`https://ironworks-backend.onrender.com/api/v1/orders/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        From: user.email,
-      },
-    }).then((res) => res.json())
+    fetch(
+      `https://manufacturing-company-website-server.vercel.app/api/v1/orders/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          From: user.email,
+        },
+      }
+    ).then((res) => res.json())
   );
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;

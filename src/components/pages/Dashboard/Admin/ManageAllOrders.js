@@ -18,12 +18,15 @@ const ManageAllOrders = () => {
     data: allOrders,
     refetch,
   } = useQuery("allOrders", () =>
-    fetch("https://ironworks-backend.onrender.com/api/v1/orders", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    }).then((res) => {
+    fetch(
+      "https://manufacturing-company-website-server.vercel.app/api/v1/orders",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    ).then((res) => {
       /* if (res.status === 401 || res.status === 403) {
         signOut(auth);
         localStorage.removeItem("accessToken");

@@ -8,13 +8,16 @@ const useToken = (user) => {
   };
   useEffect(() => {
     if (user) {
-      fetch(`https://ironworks-backend.onrender.com/api/v1/users/${email}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(currentUser),
-      })
+      fetch(
+        `https://manufacturing-company-website-server.vercel.app/api/v1/users/${email}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           const accessToken = data.token;

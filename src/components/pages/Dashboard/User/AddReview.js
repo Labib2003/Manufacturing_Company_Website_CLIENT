@@ -23,14 +23,17 @@ const AddReview = () => {
       stars: starsRef.current.valueAsNumber,
       body: reviewRef.current.value,
     };
-    fetch("https://ironworks-backend.onrender.com/api/v1/reviews", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-      body: JSON.stringify(review),
-    })
+    fetch(
+      "https://manufacturing-company-website-server.vercel.app/api/v1/reviews",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify(review),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) {

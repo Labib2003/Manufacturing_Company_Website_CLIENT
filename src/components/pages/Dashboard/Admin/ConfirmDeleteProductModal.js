@@ -13,12 +13,15 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
 
   const handleDelete = (id) => {
     setProduct(null);
-    fetch(`https://ironworks-backend.onrender.com/api/v1/tools/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
+    fetch(
+      `https://manufacturing-company-website-server.vercel.app/api/v1/tools/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) throw new Error(data.message);

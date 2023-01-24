@@ -1,20 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const queryClient = new QueryClient();
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 root.render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <React.StrictMode>
-        <App />
+        <ThemeProvider theme={darkTheme}>
+          <App />
+        </ThemeProvider>
       </React.StrictMode>
     </BrowserRouter>
   </QueryClientProvider>

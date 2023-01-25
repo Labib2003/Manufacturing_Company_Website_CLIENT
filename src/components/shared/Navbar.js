@@ -130,7 +130,10 @@ function Navbar() {
 
           {user ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Button onClick={handleLogout} sx={{ my: 2, color: "white", display: "block" }}>
+              <Button
+                onClick={handleLogout}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
                 <Typography variant="p">Log Out</Typography>
               </Button>
             </Box>

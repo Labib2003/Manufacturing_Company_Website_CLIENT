@@ -1,8 +1,9 @@
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import FailedToFetch from "../../shared/FailedToFetch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
-import Tool from "./Tool";
+import ProductCard from "../../shared/ProductCard";
 
 const AllProducts = () => {
   const {
@@ -21,14 +22,28 @@ const AllProducts = () => {
     return <FailedToFetch></FailedToFetch>;
   }
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-5 text-center">All Products</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 mb-32">
+    <Box>
+      <Typography variant="h4" align="center" gutterBottom>
+        All Products
+      </Typography>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+          },
+          gap: 4,
+          placeItems: "center",
+          marginBottom: 2,
+        }}
+      >
         {tools.data.map((tool) => (
-          <Tool key={tool._id} tool={tool}></Tool>
+          <ProductCard key={tool.key} tool={tool} />
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,9 +1,10 @@
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import FailedToFetch from "../../shared/FailedToFetch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
-import Tool from "./Tool";
+import ProductCard from "../../shared/ProductCard";
 
 const Tools = () => {
   const {
@@ -22,22 +23,38 @@ const Tools = () => {
   if (error) {
     return <FailedToFetch></FailedToFetch>;
   }
-  const firstEight = tools.data.slice(0, 8);
+  const firstThree = tools.data.slice(0, 3);
 
   return (
-    <div className="mb-32 grid place-items-center">
-      <h1 className="text-3xl font-bold mb-5">
-        Our Product Line (Total Product: {tools.data.length})
-      </h1>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 mb-5">
-        {firstEight.map((tool) => (
-          <Tool key={tool._id} tool={tool}></Tool>
+    <Box>
+      <Typography variant="h4" align="center" gutterBottom>
+        Our Top Products (Total Product: {tools.data.length})
+      </Typography>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+          },
+          gap: 4,
+          placeItems: "center",
+          marginBottom: 2,
+        }}
+      >
+        {firstThree.map((tool) => (
+          <ProductCard key={tool._id} tool={tool} />
         ))}
-      </div>
-      <Link className="btn btn-secondary" to="/allProducts">
-        All Products
-      </Link>
-    </div>
+      </Box>
+      <Button
+        variant="contained"
+        sx={{ display: "block", margin: "0 auto" }}
+        size="large"
+      >
+        <Link to="/all-products">All Products</Link>
+      </Button>
+    </Box>
   );
 };
 

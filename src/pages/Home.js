@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import Banner from "../components/pages/Home/Banner";
 import BusinessSummary from "../components/pages/Home/BusinessSummary";
@@ -9,9 +10,9 @@ import Tools from "../components/pages/Home/Tools";
 
 const Home = () => {
   return (
-    <div>
+    <Box>
       <Banner />
-      <Tools/>
+      <Tools />
       <BusinessSummary></BusinessSummary>
       <Map></Map>
       <CustomerReviews></CustomerReviews>
@@ -23,7 +24,7 @@ const Home = () => {
           <NewsLetter></NewsLetter>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

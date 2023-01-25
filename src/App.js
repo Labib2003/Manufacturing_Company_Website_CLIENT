@@ -9,7 +9,7 @@ import Dashboard from "./components/pages/Dashboard/Dashboard";
 import MyOrders from "./components/pages/Dashboard/User/MyOrders";
 import MyProfile from "./components/pages/Dashboard/MyProfile";
 import Payment from "./components/pages/Dashboard/User/Payment";
-import Home from "./components/pages/Home/Home";
+import Home from "./pages/Home";
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Login/Register";
 import Purchase from "./components/pages/Purchase/Purchase";
@@ -23,11 +23,13 @@ import AllProducts from "./components/pages/Home/AllProducts";
 import PageNotFound from "./components/shared/PageNotFound";
 import Portfolio from "./components/pages/Portfolio/Portfolio";
 import Blogs from "./pages/Blogs";
+import { Container } from "@mui/material";
 
 function App() {
   return (
-    <div className="w-full p-5 md:w-4/5 md:p-0 mx-auto">
-        <Navbar />
+    <div>
+      <Navbar />
+      <Container>
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/home" element={<Home></Home>}></Route>
@@ -42,7 +44,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/allProducts"
+            path="/all-products"
             element={<AllProducts></AllProducts>}
           ></Route>
           <Route path="/blogs" element={<Blogs />} />
@@ -94,8 +96,9 @@ function App() {
           </Route>
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Routes>
-        <ToastContainer />
-        <Footer />
+      </Container>
+      <ToastContainer />
+      <Footer />
     </div>
   );
 }

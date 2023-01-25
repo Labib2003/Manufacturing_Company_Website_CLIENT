@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import { createTheme } from "@mui/material";
+import { createTheme, CssBaseline } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -22,6 +22,7 @@ root.render(
     <BrowserRouter>
       <React.StrictMode>
         <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
           <App />
         </ThemeProvider>
       </React.StrictMode>

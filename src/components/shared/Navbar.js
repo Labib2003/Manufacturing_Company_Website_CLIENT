@@ -1,52 +1,149 @@
-import { signOut } from 'firebase/auth';
-import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
-import auth from '../../firebase.init';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import auth from "../../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 
-const Navbar = () => {
-    // react firebase hooks
-    const [user] = useAuthState(auth);
+const pages = [
+  { title: "Home", link: "/" },
+  { title: "Products", link: "/all-products" },
+  { title: "Dashboard", link: "/dashboard" },
+];
 
-    const navElements = <>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/allProducts'>All Products</Link></li>
-        <li><Link to='/blogs'>Blogs</Link></li>
-        <li><Link to='/portfolio'>Portfolio</Link></li>
-        {
-            user
-                ?
-                <>
-                    <li><Link to='/dashboard'>Dashboard</Link></li>
-                    <li><button onClick={() => {
-                        signOut(auth);
-                        localStorage.removeItem('accessToken');
-                    }}>Log Out</button></li>
-                </>
-                :
-                <li><Link to='/login'>Login</Link></li>
-        }
-    </>
-    return (
-        <div className="navbar bg-base-100 mb-32">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex="0" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                    </label>
-                    <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        {navElements}
-                    </ul>
-                </div>
-                <Link to='/' className="btn btn-ghost normal-case text-xl">IronWorks</Link>
-            </div>
-            <div className="navbar-end hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">
-                    {navElements}
-                </ul>
-            </div>
-        </div>
-    );
-};
+function Navbar() {
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [user] = useAuthState(auth);
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleLogout = () => {
+    signOut(auth);
+    localStorage.removeItem("accessToken");
+  };
+
+  return (
+    <AppBar position="sticky" sx={{ marginBottom: 4 }}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <HandymanIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            IronWorks
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem onClick={handleCloseNavMenu} key={page}>
+                  <Typography textAlign="center">
+                    <Link to={page.link}>{page.title}</Link>
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <HandymanIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            IronWorks
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                <Link to={page.link}>{page.title}</Link>
+              </Button>
+            ))}
+          </Box>
+
+          {user ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Button onClick={handleLogout} sx={{ my: 2, color: "white", display: "block" }}>
+                <Typography variant="p">Log Out</Typography>
+              </Button>
+            </Box>
+          ) : (
+            <Box>
+              <Button sx={{ my: 2, color: "white", display: "block" }}>
+                <Link to="/login">Login</Link>
+              </Button>
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
 export default Navbar;

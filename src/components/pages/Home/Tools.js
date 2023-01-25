@@ -28,7 +28,7 @@ const Tools = () => {
   return (
     <Box>
       <Typography variant="h4" align="center" gutterBottom>
-        Our Top Products (Total Product: {tools.data.length})
+        Our Top Products
       </Typography>
       <Box
         sx={{

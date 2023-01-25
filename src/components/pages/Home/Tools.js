@@ -26,8 +26,8 @@ const Tools = () => {
   const firstThree = tools.data.slice(0, 3);
 
   return (
-    <Box>
-      <Typography variant="h4" align="center" gutterBottom>
+    <Box sx={{marginBottom: 8}}>
+      <Typography variant="h4" align="center" color="primary" gutterBottom>
         Our Top Products
       </Typography>
       <Box

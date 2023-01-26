@@ -13,9 +13,9 @@ const Home = () => {
     <Box>
       <Banner />
       <Tools />
-      <BusinessSummary></BusinessSummary>
-      <Map></Map>
-      <CustomerReviews></CustomerReviews>
+      <BusinessSummary />
+      <Map />
+      <CustomerReviews />
       <div id="contact" className="flex flex-col md:flex-row md:justify-around">
         <div className="my-auto">
           <ContactUs></ContactUs>

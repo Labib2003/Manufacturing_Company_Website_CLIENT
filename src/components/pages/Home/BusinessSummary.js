@@ -8,7 +8,7 @@ const BusinessSummary = () => {
   return (
     <Box id="business" sx={{marginBottom: 8}}>
       <Divider />
-      <Typography variant="h4" align="center" color="primary" sx={{ margin: "1rem 0" }}>
+      <Typography variant="h4" align="center" color="primary" sx={{ margin: ".5rem 0" }}>
         Why should you choose us?
       </Typography>
       <Divider />
@@ -69,7 +69,6 @@ const BusinessSummary = () => {
           </Typography>
         </Box>
       </Box>
-      <Divider />
     </Box>
   );
 };

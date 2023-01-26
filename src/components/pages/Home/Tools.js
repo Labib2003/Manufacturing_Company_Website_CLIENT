@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -27,9 +27,11 @@ const Tools = () => {
 
   return (
     <Box sx={{marginBottom: 8}}>
-      <Typography variant="h4" align="center" color="primary" gutterBottom>
+      <Divider />
+      <Typography variant="h4" align="center" color="primary" sx={{margin: ".5rem 0"}}>
         Our Top Products
       </Typography>
+      <Divider />
       <Box
         sx={{
           display: "grid",
@@ -40,6 +42,7 @@ const Tools = () => {
           },
           gap: 4,
           placeItems: "center",
+          marginTop: 1,
           marginBottom: 2,
         }}
       >

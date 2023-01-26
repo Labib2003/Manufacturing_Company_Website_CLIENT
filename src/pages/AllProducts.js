@@ -4,6 +4,7 @@ import ProductCard from "../components/shared/ProductCard";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import FailedToFetch from "../components/shared/FailedToFetch";
 import { Box, Typography } from "@mui/material";
+import SectionTitle from "../components/shared/SectionTitle";
 
 const AllProducts = () => {
   const {
@@ -17,17 +18,15 @@ const AllProducts = () => {
   );
 
   if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <LoadingSpinner />;
   }
   if (error) {
-    return <FailedToFetch></FailedToFetch>;
+    return <FailedToFetch />;
   }
 
   return (
     <Box>
-      <Typography variant="h4" align="center" gutterBottom>
-        All Products
-      </Typography>
+      <SectionTitle>Our Products</SectionTitle>
       <Box
         sx={{
           display: "grid",

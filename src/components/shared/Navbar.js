@@ -38,7 +38,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ marginBottom: 8 }}>
+    <AppBar position="sticky" sx={{ marginBottom: 4 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <HandymanIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

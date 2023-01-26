@@ -1,9 +1,9 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
-import FailedToFetch from "../../shared/FailedToFetch";
-import LoadingSpinner from "../../shared/LoadingSpinner";
-import ProductCard from "../../shared/ProductCard";
+import ProductCard from "../components/shared/ProductCard";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
+import FailedToFetch from "../components/shared/FailedToFetch";
+import { Box, Typography } from "@mui/material";
 
 const AllProducts = () => {
   const {
@@ -15,12 +15,14 @@ const AllProducts = () => {
       "https://manufacturing-company-website-server.vercel.app/api/v1/tools"
     ).then((res) => res.json())
   );
+
   if (isLoading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
   if (error) {
     return <FailedToFetch></FailedToFetch>;
   }
+
   return (
     <Box>
       <Typography variant="h4" align="center" gutterBottom>

@@ -1,12 +1,13 @@
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import FailedToFetch from "../../shared/FailedToFetch";
-import LoadingSpinner from "../../shared/LoadingSpinner";
-import ProductCard from "../../shared/ProductCard";
+import FailedToFetch from "../shared/FailedToFetch";
+import LoadingSpinner from "../shared/LoadingSpinner";
+import SectionTitle from "../shared/SectionTitle";
+import ProductCard from "../shared/ProductCard";
+import { Box, Button } from "@mui/material";
 
-const Tools = () => {
+const TopTools = () => {
   const {
     isLoading,
     error,
@@ -23,26 +24,21 @@ const Tools = () => {
   if (error) {
     return <FailedToFetch></FailedToFetch>;
   }
+
   const firstThree = tools.data.slice(0, 3);
 
   return (
-    <Box sx={{marginBottom: 8}}>
-      <Divider />
-      <Typography variant="h4" align="center" color="primary" sx={{margin: ".5rem 0"}}>
-        Our Top Products
-      </Typography>
-      <Divider />
+    <Box sx={{ marginBottom: 8 }}>
+      <SectionTitle title="Our Top Products">Out Top Products</SectionTitle>
       <Box
         sx={{
           display: "grid",
           gridTemplateColumns: {
             xs: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
+            sm: "repeat(3, 1fr)",
           },
           gap: 4,
           placeItems: "center",
-          marginTop: 1,
           marginBottom: 2,
         }}
       >
@@ -61,4 +57,4 @@ const Tools = () => {
   );
 };
 
-export default Tools;
+export default TopTools;

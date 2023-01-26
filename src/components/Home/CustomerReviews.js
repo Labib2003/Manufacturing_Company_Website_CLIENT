@@ -1,9 +1,10 @@
-import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
-import FailedToFetch from "../../shared/FailedToFetch";
-import LoadingSpinner from "../../shared/LoadingSpinner";
+import FailedToFetch from "../shared/FailedToFetch";
+import LoadingSpinner from "../shared/LoadingSpinner";
+import SectionTitle from "../shared/SectionTitle";
 import CustomerReview from "./CustomerReview";
+import { Box } from "@mui/material";
 
 const CustomerReviews = () => {
   const {
@@ -27,21 +28,12 @@ const CustomerReviews = () => {
 
   return (
     <Box sx={{ marginBottom: 8 }}>
-      <Divider />
-      <Typography
-        variant="h4"
-        align="center"
-        color="primary"
-        sx={{ margin: ".5rem 0" }}
-      >
-        Customer Reviews
-      </Typography>
-      <Divider />
+      <SectionTitle>Customer Reviews</SectionTitle>
       <Box
         sx={{
           marginTop: 1,
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateColumns: {xs: "repeat(1, 1fr)", md:"repeat(3, 1fr)" },
           gap: 4,
         }}
       >

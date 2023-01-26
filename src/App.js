@@ -19,11 +19,11 @@ import RequiteAuth from "./components/shared/RequiteAuth";
 import RequireAdmin from "./hooks/RequireAdmin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AllProducts from "./components/pages/Home/AllProducts";
 import PageNotFound from "./components/shared/PageNotFound";
 import Portfolio from "./components/pages/Portfolio/Portfolio";
 import Blogs from "./pages/Blogs";
 import { Container } from "@mui/material";
+import AllProducts from "./pages/AllProducts";
 
 function App() {
   return (
@@ -43,10 +43,7 @@ function App() {
               </RequiteAuth>
             }
           ></Route>
-          <Route
-            path="/all-products"
-            element={<AllProducts></AllProducts>}
-          ></Route>
+          <Route path="/all-products" element={<AllProducts />}></Route>
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/portfolio" element={<Portfolio></Portfolio>}></Route>
           <Route

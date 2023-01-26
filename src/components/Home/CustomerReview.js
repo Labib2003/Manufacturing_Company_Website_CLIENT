@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
@@ -12,10 +12,10 @@ const CustomerReview = ({ review }) => {
           {new Array(stars).fill(0).map(elem => <StarIcon />)}
           {new Array(5 - stars).fill(0).map(elem => <StarBorderIcon />)}
         </Typography>
-        <Typography variant="body1">
-          {user}
-          <br />
+        <Typography variant="body1" color="GrayText">
           {`"${body}"`}
+          <br />
+          - {user}
         </Typography>
       </CardContent>
     </Card>

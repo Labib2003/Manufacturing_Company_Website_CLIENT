@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import ProductCard from "../components/shared/ProductCard";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import FailedToFetch from "../components/shared/FailedToFetch";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import SectionTitle from "../components/shared/SectionTitle";
 
 const AllProducts = () => {
@@ -27,23 +27,13 @@ const AllProducts = () => {
   return (
     <Box>
       <SectionTitle>Our Products</SectionTitle>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "repeat(1, 1fr)",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
-          },
-          gap: 4,
-          placeItems: "center",
-          marginBottom: 2,
-        }}
-      >
+      <Grid container spacing={4}>
         {tools.data.map((tool) => (
-          <ProductCard key={tool.key} tool={tool} />
+          <Grid item key={tool.key} xs={12} sm={6} md={4}>
+            <ProductCard tool={tool} />
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </Box>
   );
 };

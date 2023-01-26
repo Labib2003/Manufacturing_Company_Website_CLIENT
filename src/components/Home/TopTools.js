@@ -5,7 +5,7 @@ import FailedToFetch from "../shared/FailedToFetch";
 import LoadingSpinner from "../shared/LoadingSpinner";
 import SectionTitle from "../shared/SectionTitle";
 import ProductCard from "../shared/ProductCard";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 const TopTools = () => {
   const {
@@ -30,22 +30,13 @@ const TopTools = () => {
   return (
     <Box sx={{ marginBottom: 8 }}>
       <SectionTitle title="Our Top Products">Out Top Products</SectionTitle>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: {
-            xs: "repeat(1, 1fr)",
-            sm: "repeat(3, 1fr)",
-          },
-          gap: 4,
-          placeItems: "center",
-          marginBottom: 2,
-        }}
-      >
+      <Grid container spacing={4} marginBottom={2}>
         {firstThree.map((tool) => (
-          <ProductCard key={tool._id} tool={tool} />
+          <Grid item key={tool._id} xs={12} sm={6} md={4}>
+            <ProductCard tool={tool} />
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       <Button
         variant="contained"
         sx={{ display: "block", margin: "0 auto" }}

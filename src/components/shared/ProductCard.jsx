@@ -22,14 +22,14 @@ const ProductCard = ({ tool }) => {
   } = tool;
   const navigate = useNavigate();
 
-  const navigateToUpdate = (id) => {
-    navigate(`/tools/${id}`);
+  const navigateToUpdate = () => {
+    navigate(`/tools/${_id}`);
   };
 
   return (
-    <Card
+    <Card 
       sx={{
-        maxWidth: 345,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -41,7 +41,9 @@ const ProductCard = ({ tool }) => {
           {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {description.length > 100 ? description.slice(0, 100) + "..." : description}
+          {description.length > 100
+            ? description.slice(0, 100) + "..."
+            : description}
         </Typography>
       </CardContent>
       <CardActions>

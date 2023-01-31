@@ -3,17 +3,18 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../../firebase.init";
+import auth from "../../../firebase.init";
 
-const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
-  const { name, quantity, _id } = order;
+const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
   const navigate = useNavigate();
+  const { _id, name } = product;
+
   const [user] = useAuthState(auth);
 
   const handleDelete = (id) => {
-    setOrder(null);
+    setProduct(null);
     fetch(
-      `https://manufacturing-company-website-server.vercel.app/api/v1/orders/${id}`,
+      `https://manufacturing-company-website-server.vercel.app/api/v1/tools/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -24,7 +25,7 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
       .then((res) => res.json())
       .then((data) => {
         if (!data.success) throw new Error(data.message);
-        toast.success("Order cancelled successfully");
+        toast.success("Item deleted successfully");
         refetch();
       })
       .catch((error) => toast.error(error.message));
@@ -32,19 +33,18 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
 
   return (
     <div>
-      <input type="checkbox" id="deleteModal" className="modal-toggle" />
+      <input type="checkbox" id="delete-product" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative">
-          <h3 className="text-lg font-bold mb-5">
-            Cancel your <span className="text-error">{name}</span> order?
+          <h3 className="text-lg font-bold mb-10">
+            Are you sure you want to delete {name}?
           </h3>
-          <p className="mb-5">You ordered {quantity} pieces of this product.</p>
-          <div className="flex justify-between">
-            <button onClick={() => handleDelete(_id)} className="btn btn-error">
-              Confirm
+          <div className="flex justify-around">
+            <button className="btn btn-error" onClick={() => handleDelete(_id)}>
+              Delete
             </button>
-            <label htmlFor="deleteModal" className="btn btn-warning">
-              Go back
+            <label htmlFor="delete-product" className="btn btn-success">
+              No
             </label>
           </div>
         </div>
@@ -53,4 +53,4 @@ const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
   );
 };
 
-export default DeleteConfirmModal;
+export default ConfirmDeleteProductModal;

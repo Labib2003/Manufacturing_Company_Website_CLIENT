@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../../firebase.init";
+import auth from "../../../firebase.init";
 
 const AddNewProduct = () => {
   const navigate = useNavigate();

@@ -4,9 +4,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../../firebase.init";
-import FailedToFetch from "../../../shared/FailedToFetch";
-import LoadingSpinner from "../../../shared/LoadingSpinner";
+import auth from "../../../firebase.init";
+import FailedToFetch from "../../shared/FailedToFetch";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 import UserRow from "./UserRow";
 
 const MakeAdmin = () => {
@@ -30,10 +30,10 @@ const MakeAdmin = () => {
     ).then((res) => res.json())
   );
   if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <LoadingSpinner />;
   }
   if (error) {
-    return <FailedToFetch></FailedToFetch>;
+    return <FailedToFetch />;
   }
   return (
     <div className="card bg-base-200 shadow-xl">

@@ -1,18 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import AddReview from "./components/pages/Dashboard/User/AddReview";
-import AddNewProduct from "./components/pages/Dashboard/Admin/AddNewProduct";
-import MakeAdmin from "./components/pages/Dashboard/Admin/MakeAdmin";
-import ManageAllOrders from "./components/pages/Dashboard/Admin/ManageAllOrders";
-import ManageProducts from "./components/pages/Dashboard/Admin/ManageProducts";
-import Dashboard from "./components/pages/Dashboard/Dashboard";
-import MyOrders from "./components/pages/Dashboard/User/MyOrders";
-import MyProfile from "./components/pages/Dashboard/MyProfile";
-import Payment from "./components/pages/Dashboard/User/Payment";
 import Home from "./pages/Home";
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Login/Register";
-import Purchase from "./components/pages/Purchase/Purchase";
+import Purchase from "./pages/Purchase";
 import Footer from "./components/shared/Footer";
 import Navbar from "./components/shared/Navbar";
 import RequiteAuth from "./components/shared/RequiteAuth";
@@ -20,10 +11,17 @@ import RequireAdmin from "./hooks/RequireAdmin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageNotFound from "./components/shared/PageNotFound";
-import Portfolio from "./components/pages/Portfolio/Portfolio";
-import Blogs from "./pages/Blogs";
 import { Container } from "@mui/material";
 import AllProducts from "./pages/AllProducts";
+import Dashboard from "./pages/Dashboard";
+import Payment from "./components/Dashboard/User/Payment";
+import AddReview from "./components/Dashboard/User/AddReview";
+import MyOrders from "./components/Dashboard/User/MyOrders";
+import ManageAllOrders from "./components/Dashboard/Admin/ManageAllOrders";
+import AddNewProduct from "./components/Dashboard/Admin/AddNewProduct";
+import MakeAdmin from "./components/Dashboard/Admin/MakeAdmin";
+import ManageProducts from "./components/Dashboard/Admin/ManageProducts";
+import MyProfile from "./components/Dashboard/MyProfile";
 
 function App() {
   return (
@@ -31,67 +29,65 @@ function App() {
       <Navbar />
       <Container>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/home" element={<Home />}></Route>
-          <Route path="/login" element={<Login></Login>}></Route>
-          <Route path="/register" element={<Register></Register>}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/tools/:id"
             element={
               <RequiteAuth>
-                <Purchase></Purchase>
+                <Purchase />
               </RequiteAuth>
             }
-          ></Route>
-          <Route path="/all-products" element={<AllProducts />}></Route>
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/portfolio" element={<Portfolio></Portfolio>}></Route>
+          />
+          <Route path="/all-products" element={<AllProducts />} />
           <Route
             path="/dashboard"
             element={
               <RequiteAuth>
-                <Dashboard></Dashboard>
+                <Dashboard />
               </RequiteAuth>
             }
           >
-            <Route index element={<MyProfile></MyProfile>}></Route>
-            <Route path="payment/:id" element={<Payment></Payment>}></Route>
-            <Route path="addReview" element={<AddReview></AddReview>}></Route>
-            <Route path="myOrders" element={<MyOrders></MyOrders>}></Route>
+            <Route index element={<MyProfile />} />
+            <Route path="payment/:id" element={<Payment />} />
+            <Route path="addReview" element={<AddReview />} />
+            <Route path="myOrders" element={<MyOrders />} />
             <Route
               path="manageAllOrders"
               element={
                 <RequireAdmin>
-                  <ManageAllOrders></ManageAllOrders>
+                  <ManageAllOrders />
                 </RequireAdmin>
               }
-            ></Route>
+            />
             <Route
               path="addNewProduct"
               element={
                 <RequireAdmin>
-                  <AddNewProduct></AddNewProduct>
+                  <AddNewProduct />
                 </RequireAdmin>
               }
-            ></Route>
+            />
             <Route
               path="makeAdmin"
               element={
                 <RequireAdmin>
-                  <MakeAdmin></MakeAdmin>
+                  <MakeAdmin />
                 </RequireAdmin>
               }
-            ></Route>
+            />
             <Route
               path="manageProducts"
               element={
                 <RequireAdmin>
-                  <ManageProducts></ManageProducts>
+                  <ManageProducts />
                 </RequireAdmin>
               }
-            ></Route>
+            />
           </Route>
-          <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
+          <Route path="*" element={<PageNotFound />}></Route>
         </Routes>
       </Container>
       <ToastContainer />

@@ -1,12 +1,21 @@
+import {
+  Box,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../../firebase.init";
-import FailedToFetch from "../../../shared/FailedToFetch";
-import LoadingSpinner from "../../../shared/LoadingSpinner";
+import auth from "../../../firebase.init";
+import FailedToFetch from "../../shared/FailedToFetch";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import OrdersRow from "./OrdersRow";
 
@@ -16,7 +25,7 @@ const MyOrders = () => {
   const email = user.email;
   const navigate = useNavigate();
 
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState(null);
 
   // react query
   const {
@@ -36,28 +45,30 @@ const MyOrders = () => {
     ).then((res) => res.json())
   );
   if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <LoadingSpinner />;
   }
   if (error) {
-    return <FailedToFetch></FailedToFetch>;
+    return <FailedToFetch />;
   }
 
   return (
-    <div className="card shadow-xl">
+    <Box>
       <div className="overflow-x-auto card-body">
-        <h1 className="text-3xl font-bold mb-10">Your orders</h1>
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr className="text-left text-xl font-bold">
-              <th></th>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Total Price</th>
-              <th>Payment Status</th>
-              <th className="text-center">Payment</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Typography variant="h4" color="primary">
+          Your orders
+        </Typography>
+        <TableContainer component="paper">
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Quantity</TableCell>
+              <TableCell>Total Price</TableCell>
+              <TableCell>Payment Status</TableCell>
+              <TableCell align="center">Payment</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {orders.data.map((order, index) => (
               <OrdersRow
                 key={order._id}
@@ -66,8 +77,8 @@ const MyOrders = () => {
                 setOrder={setOrder}
               ></OrdersRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </TableContainer>
         {order && (
           <DeleteConfirmModal
             order={order}
@@ -76,7 +87,7 @@ const MyOrders = () => {
           ></DeleteConfirmModal>
         )}
       </div>
-    </div>
+    </Box>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { Box } from "@mui/system";
-import { BottomNavigation, Card, Typography } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import HandymanIcon from "@mui/icons-material/Handyman";
 
 const Footer = () => {
   return (
-    <Card sx={{ marginTop: 8, padding: 2 }}>
+    <Card sx={{ marginTop: "auto", padding: 2, backgroundColor: "primary" }}>
       <Typography
         variant="h6"
         sx={{

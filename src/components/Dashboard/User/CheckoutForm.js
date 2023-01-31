@@ -1,10 +1,12 @@
+import { Button, Typography } from "@mui/material";
+import { Stack } from "@mui/system";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../../firebase.init";
+import auth from "../../../firebase.init";
 
 const CheckoutForm = ({ order }) => {
   const stripe = useStripe();
@@ -119,35 +121,40 @@ const CheckoutForm = ({ order }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+      <Stack spacing={1}>
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <p className="text-xl text-red-500 font-semibold my-5">{stripeError}</p>
-      <p className="text-xl text-lime-500 font-semibold my-5">
-        {success &&
-          transactionId &&
-          `${success} Transaction Id: ${transactionId}`}
-      </p>
-      <button
-        className="btn btn-success"
-        type="submit"
-        disabled={!stripe || !clientSecret}
-      >
-        Pay
-      </button>
+          }}
+        />
+        <Typography variant="h6" color="red">
+          {stripeError}
+        </Typography>
+        <Typography variant="h6" color="lime">
+          {success &&
+            transactionId &&
+            `${success} Transaction Id: ${transactionId}`}
+        </Typography>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          disabled={!stripe || !clientSecret}
+        >
+          Pay
+        </Button>
+      </Stack>
     </form>
   );
 };

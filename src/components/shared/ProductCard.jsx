@@ -6,20 +6,13 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ tool }) => {
   // props
-  const {
-    _id,
-    name,
-    image,
-    description,
-    min_order_quantity,
-    available_quantity,
-    per_unit_price,
-  } = tool;
+  const { _id, name, image, description } = tool;
   const navigate = useNavigate();
 
   const navigateToUpdate = () => {
@@ -27,7 +20,7 @@ const ProductCard = ({ tool }) => {
   };
 
   return (
-    <Card 
+    <Card
       sx={{
         height: "100%",
         display: "flex",
@@ -35,17 +28,19 @@ const ProductCard = ({ tool }) => {
         justifyContent: "space-between",
       }}
     >
-      <CardMedia component="img" image={image} alt={name} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description.length > 100
-            ? description.slice(0, 100) + "..."
-            : description}
-        </Typography>
-      </CardContent>
+      <Box>
+        <CardMedia component="img" image={image} alt={name} />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {description.length > 100
+              ? description.slice(0, 100) + "..."
+              : description}
+          </Typography>
+        </CardContent>
+      </Box>
       <CardActions>
         <Button onClick={navigateToUpdate} size="small" color="primary">
           Purchase

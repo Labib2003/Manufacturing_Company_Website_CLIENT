@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import ProductCard from "../components/shared/ProductCard";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import FailedToFetch from "../components/shared/FailedToFetch";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import SectionTitle from "../components/shared/SectionTitle";
 
 const AllProducts = () => {

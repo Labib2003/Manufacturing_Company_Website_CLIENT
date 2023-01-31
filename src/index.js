@@ -11,6 +11,7 @@ import { createTheme, CssBaseline } from "@mui/material";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const queryClient = new QueryClient();
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",

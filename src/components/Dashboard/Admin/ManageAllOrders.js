@@ -3,9 +3,9 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import auth from "../../../../firebase.init";
-import FailedToFetch from "../../../shared/FailedToFetch";
-import LoadingSpinner from "../../../shared/LoadingSpinner";
+import auth from "../../../firebase.init";
+import FailedToFetch from "../../shared/FailedToFetch";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 import AllOrdersRow from "./AllOrdersRow";
 
 const ManageAllOrders = () => {
@@ -36,10 +36,10 @@ const ManageAllOrders = () => {
     })
   );
   if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <LoadingSpinner />;
   }
   if (error) {
-    return <FailedToFetch></FailedToFetch>;
+    return <FailedToFetch />;
   }
   return (
     <div className="card shadow-xl bg-base-200">

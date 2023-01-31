@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import FailedToFetch from "../../../shared/FailedToFetch";
-import LoadingSpinner from "../../../shared/LoadingSpinner";
+import FailedToFetch from "../../shared/FailedToFetch";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 import ConfirmDeleteProductModal from "./ConfirmDeleteProductModal";
 import ProductRow from "./ProductRow";
 
@@ -19,10 +19,10 @@ const ManageProducts = () => {
     ).then((res) => res.json())
   );
   if (isLoading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <LoadingSpinner />;
   }
   if (error) {
-    return <FailedToFetch></FailedToFetch>;
+    return <FailedToFetch />;
   }
   return (
     <div className="card bg-base-200 shadow-xl">

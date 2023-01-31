@@ -53,7 +53,7 @@ const points = [
 const BusinessSummary = () => {
   return (
     <Box id="business" sx={{ marginBottom: 8 }}>
-      <SectionTitle>Why Should You Choose Us</SectionTitle>
+      <SectionTitle>Why You Should Choose Us</SectionTitle>
       <Box
         sx={{
           display: "grid",

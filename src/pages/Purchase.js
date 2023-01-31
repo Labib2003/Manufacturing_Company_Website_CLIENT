@@ -1,21 +1,13 @@
-import {
-  Button,
-  Divider,
-  Input,
-  InputLabel,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Divider, Stack, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../firebase.init";
-import FailedToFetch from "../../shared/FailedToFetch";
-import LoadingSpinner from "../../shared/LoadingSpinner";
+import auth from "../firebase.init";
+import FailedToFetch from "../components/shared/FailedToFetch";
+import LoadingSpinner from "../components/shared/LoadingSpinner";
 
 const Purchase = () => {
   // getting the id from url
@@ -123,7 +115,7 @@ const Purchase = () => {
 
   return (
     <Stack
-      direction={{xs:"column", sm: "row"}}
+      direction={{ xs: "column", sm: "row" }}
       divider={<Divider orientation="vertical" flexItem />}
       spacing={4}
     >
@@ -180,6 +172,7 @@ const Purchase = () => {
             type="number"
             defaultValue={min_order_quantity}
             margin="normal"
+            inputProps={{ min: min_order_quantity, max: available_quantity }}
             fullWidth
             required
             ref={quantityRef}

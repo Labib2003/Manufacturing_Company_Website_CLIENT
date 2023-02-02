@@ -1,3 +1,5 @@
+import { Box, Button, Card, Input, TextField, Typography } from "@mui/material";
+import { Stack } from "@mui/system";
 import { signOut } from "firebase/auth";
 import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -66,98 +68,65 @@ const AddNewProduct = () => {
   };
 
   return (
-    <div>
-      <div className="card bg-base-200 shadow-2xl">
-        <div className="card-body">
-          <h1 className="card-title text-3xl font-bold">Enter Product Info</h1>
-          <form
-            onSubmit={handleAddNewProduct}
-            className="w-full"
-            autoComplete="off"
-          >
-            <div className="form-control mb-5">
-              <label className="label">
-                <span className="label-text">Name</span>
-              </label>
-              <input
-                type="text"
-                ref={nameRef}
-                placeholder="Enter product name"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control mb-5">
-              <label className="label">
-                <span className="label-text">Description</span>
-              </label>
-              <input
-                type="text"
-                ref={descriptionRef}
-                placeholder="Enter a short description of the product"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control mb-5">
-              <label className="label">
-                <span className="label-text">Available Quantity</span>
-              </label>
-              <input
-                type="number"
-                min="0"
-                ref={availableRef}
-                placeholder="Enter available quantity"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control mb-5">
-              <label className="label">
-                <span className="label-text">Minimum order quantity</span>
-              </label>
-              <input
-                type="number"
-                min="0"
-                ref={minRef}
-                placeholder="Enter minimum order quantity"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control mb-5">
-              <label className="label">
-                <span className="label-text">Price</span>
-              </label>
-              <input
-                type="number"
-                ref={priceRef}
-                placeholder="Enter per unit price"
-                className="input input-bordered w-full"
-                required
-              />
-            </div>
-            <div className="form-control w-full mb-5">
-              <label className="label">
-                <span className="label-text">Photo</span>
-              </label>
-              <input
-                type="file"
-                onChange={(e) => {
-                  setImage(e.target.files[0]);
-                }}
-                required
-              />
-            </div>
+    <Box>
+      <Typography variant="h4" color="primary" gutterBottom>
+        Enter Product Info
+      </Typography>
+      <form
+        onSubmit={handleAddNewProduct}
+        className="w-full"
+        autoComplete="off"
+      >
+        <Stack spacing={2}>
+          <TextField
+            type="text"
+            label="Product Name"
+            inputRef={nameRef}
+            required
+          />
+          <TextField
+            type="text"
+            label="Product Description"
+            inputRef={descriptionRef}
+            required
+          />
+          <TextField
+            type="number"
+            inputProps={{ min: 0 }}
+            label="Available Quantity"
+            inputRef={availableRef}
+            required
+          />
+          <TextField
+            type="number"
+            inputProps={{ min: 0 }}
+            label="Minimum Order Quantity"
+            inputRef={minRef}
+            required
+          />
+          <TextField
+            type="number"
+            inputProps={{ min: 0 }}
+            label="Per Unit Price"
+            inputRef={priceRef}
+            required
+          />
+          <Box>
+            <Typography variant="body2">Photo</Typography>
             <input
-              className="btn btn-secondary w-full text-white"
-              type="submit"
-              value="Add Item"
+              type="file"
+              onChange={(e) => {
+                setImage(e.target.files[0]);
+              }}
+              required
             />
-          </form>
-        </div>
-      </div>
-    </div>
+          </Box>
+          <Button type="submit" variant="contained" size="large">
+            Submit
+          </Button>
+        </Stack>
+      </form>
+    </Box>
   );
 };
 

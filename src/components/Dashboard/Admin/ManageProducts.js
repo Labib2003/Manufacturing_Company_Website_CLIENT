@@ -1,3 +1,4 @@
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import FailedToFetch from "../../shared/FailedToFetch";
@@ -25,39 +26,39 @@ const ManageProducts = () => {
     return <FailedToFetch />;
   }
   return (
-    <div className="card bg-base-200 shadow-xl">
-      <div className="overflow-x-auto card-body">
-        <h1 className="text-3xl font-bold mb-10">All products</h1>
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr className="text-left text-xl font-bold">
-              <th className="invisible"></th>
-              <th>Name</th>
-              <th>Stock</th>
-              <th>Per Unit Price</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.data.map((product, index) => (
-              <ProductRow
-                key={product._id}
-                product={product}
-                index={index}
-                setProduct={setProduct}
-              ></ProductRow>
-            ))}
-          </tbody>
-        </table>
-        {product && (
-          <ConfirmDeleteProductModal
-            product={product}
-            setProduct={setProduct}
-            refetch={refetch}
-          ></ConfirmDeleteProductModal>
-        )}
-      </div>
-    </div>
+    <Box>
+      <Typography variant="h4" color="primary" gutterBottom>
+        All products
+      </Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Stock</TableCell>
+            <TableCell>Per Unit Price</TableCell>
+            <TableCell>Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {products.data.map((product, index) => (
+            <ProductRow
+              key={product._id}
+              product={product}
+              index={index}
+              setProduct={setProduct}
+            ></ProductRow>
+          ))}
+        </TableBody>
+      </Table>
+      {product && (
+        <ConfirmDeleteProductModal
+          product={product}
+          setProduct={setProduct}
+          refetch={refetch}
+        ></ConfirmDeleteProductModal>
+      )}
+    </Box>
   );
 };
 

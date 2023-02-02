@@ -1,3 +1,4 @@
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -27,29 +28,36 @@ const UserRow = ({ user, index, refetch }) => {
       .catch((error) => toast.error(error.message));
   };
   return (
-    <tr>
-      <td>{index + 1}</td>
-      <td>{user.email}</td>
-      <td>
+    <TableRow>
+      <TableCell>{index + 1}</TableCell>
+      <TableCell>{user.email}</TableCell>
+      <TableCell>
         {user?.isAdmin ? (
-          <p className="text-lime-500">Admin</p>
+          <Typography variant="body1" color="lime">
+            Admin
+          </Typography>
         ) : (
-          <p className="text-secondary">User</p>
+          <Typography variant="body1" color="primary">
+            User
+          </Typography>
         )}
-      </td>
-      <td>
+      </TableCell>
+      <TableCell>
         {user?.isAdmin ? (
-          <p className="text-lime-500">Already Admin</p>
+          <Typography variant="body1" color="lime">
+            Already Admin
+          </Typography>
         ) : (
-          <button
+          <Button
+            variant="contained"
+            color="success"
             onClick={() => makeAdmin(user.email)}
-            className="btn btn-success"
           >
             Make Admin
-          </button>
+          </Button>
         )}
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 };
 

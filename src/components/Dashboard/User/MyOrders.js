@@ -53,7 +53,6 @@ const MyOrders = () => {
 
   return (
     <Box>
-      <div className="overflow-x-auto card-body">
         <Typography variant="h4" color="primary">
           Your orders
         </Typography>
@@ -86,7 +85,6 @@ const MyOrders = () => {
             refetch={refetch}
           ></DeleteConfirmModal>
         )}
-      </div>
     </Box>
   );
 };

@@ -1,5 +1,6 @@
 import {
   Button,
+  Card,
   Drawer,
   List,
   ListItem,
@@ -100,7 +101,9 @@ const Dashboard = () => {
         sx={{ marginBottom: 2, fontSize: "2rem" }}
         onClick={() => setDrawerOpen(!drawerOpen)}
       />
-      <Outlet />
+      <Card sx={{padding: 4}}>
+        <Outlet />
+      </Card>
     </Box>
   );
 };

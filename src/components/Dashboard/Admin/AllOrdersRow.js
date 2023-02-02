@@ -1,3 +1,4 @@
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -38,35 +39,44 @@ const AllOrdersRow = ({ order, index, refetch }) => {
   };
 
   return (
-    <tr>
-      <td>{index + 1}</td>
-      <td>{product_name}</td>
-      <td>{email}</td>
-      <td>{quantity}</td>
-      <td>
+    <TableRow>
+      <TableCell>{index + 1}</TableCell>
+      <TableCell>{product_name}</TableCell>
+      <TableCell>{email}</TableCell>
+      <TableCell>{quantity}</TableCell>
+      <TableCell>
         {paid ? (
-          <p className="text-lime-500">Paid</p>
+          <Typography variant="body1" color="lime">
+            Paid
+          </Typography>
         ) : (
-          <p className="text-red-500">Payment Pending</p>
+          <Typography variant="body1" color="red">
+            Payment Pending
+          </Typography>
         )}
-      </td>
-      <td>
+      </TableCell>
+      <TableCell>
         {paid ? (
           shipped ? (
-            <p className="text-lime-500">Shipped</p>
+            <Typography variant="body1" color="lime">
+              Shipped
+            </Typography>
           ) : (
-            <button
-              className="btn btn-success"
+            <Button
+              variant="contained"
+              color="info"
               onClick={() => handleShipping(_id)}
             >
               Ship
-            </button>
+            </Button>
           )
         ) : (
-          <p className="text-red-500">Waiting for payment</p>
+          <Typography variant="body1" color="red">
+            Waiting for payment
+          </Typography>
         )}
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -36,31 +37,31 @@ const MakeAdmin = () => {
     return <FailedToFetch />;
   }
   return (
-    <div className="card bg-base-200 shadow-xl">
-      <div className="overflow-x-auto card-body">
-        <h1 className="text-3xl font-bold mb-10">All users</h1>
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr className="text-left text-xl font-bold">
-              <th className="invisible"></th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.data.map((user, index) => (
-              <UserRow
-                key={user._id}
-                user={user}
-                index={index}
-                refetch={refetch}
-              ></UserRow>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <Box>
+      <Typography variant="h4" color="primary" gutterBottom>
+        All users
+      </Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Role</TableCell>
+            <TableCell>Action</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {users.data.map((user, index) => (
+            <UserRow
+              key={user._id}
+              user={user}
+              index={index}
+              refetch={refetch}
+            ></UserRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Box>
   );
 };
 

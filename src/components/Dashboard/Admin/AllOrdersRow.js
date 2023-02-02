@@ -1,16 +1,11 @@
-import { Button, TableCell, TableRow, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import auth from "../../../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
 
 const AllOrdersRow = ({ order, index, refetch }) => {
-  const navigate = useNavigate();
-
   const [user] = useAuthState(auth);
-
   const { _id, product_name, email, quantity, paid, shipped } = order;
 
   const handleShipping = (id) => {

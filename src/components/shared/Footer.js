@@ -1,5 +1,4 @@
 import React from "react";
-import { Box } from "@mui/system";
 import { Card, Typography } from "@mui/material";
 import HandymanIcon from "@mui/icons-material/Handyman";
 

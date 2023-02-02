@@ -1,25 +1,17 @@
+import React from "react";
+import { toast } from "react-toastify";
 import {
   Backdrop,
+  Box,
   Button,
   Fade,
   Modal,
   Stack,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import { signOut } from "firebase/auth";
-import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import auth from "../../../firebase.init";
 
 const DeleteConfirmModal = ({ order, refetch, setOrder }) => {
   const { product_name, quantity, _id } = order;
-  console.log(order);
-  const navigate = useNavigate();
-  const [user] = useAuthState(auth);
-
   const style = {
     position: "absolute",
     top: "50%",

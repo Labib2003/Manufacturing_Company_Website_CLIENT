@@ -1,17 +1,14 @@
-import { Box, Divider, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
+import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { signOut } from "firebase/auth";
-import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import auth from "../../../firebase.init";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 import FailedToFetch from "../../shared/FailedToFetch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import CheckoutForm from "./CheckoutForm";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 const stripePromise = loadStripe(
   "pk_test_51L0hSZCsqEIAHtmewln439tN1kcj7zFfi8DLN9NpThjN9dTLGGeheAj6yNaOGpBbodw14i2XgAYPQuVCsxVUQSIS007hYq6fD4"
@@ -19,7 +16,6 @@ const stripePromise = loadStripe(
 
 const Payment = () => {
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
   const { id } = useParams();
   const { isLoading, error, data } = useQuery(["payment", id], () =>
     fetch(
@@ -52,7 +48,8 @@ const Payment = () => {
       <Box width="50%">
         <div className="card-body">
           <Typography variant="h4" color="primary">
-            Please pay for your <strong>{data?.data?.product_name}</strong> order
+            Please pay for your <strong>{data?.data?.product_name}</strong>{" "}
+            order
           </Typography>
           <Typography variant="body1">
             Order Quantity: {data?.data?.quantity}
@@ -66,9 +63,9 @@ const Payment = () => {
         </div>
       </Box>
       <Box width="50%" bgcolor="#1A2027" padding="1rem" borderRadius={1}>
-          <Elements stripe={stripePromise}>
-            <CheckoutForm order={data?.data} />
-          </Elements>
+        <Elements stripe={stripePromise}>
+          <CheckoutForm order={data?.data} />
+        </Elements>
       </Box>
     </Stack>
   );

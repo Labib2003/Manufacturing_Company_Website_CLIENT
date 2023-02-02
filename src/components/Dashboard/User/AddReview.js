@@ -1,24 +1,22 @@
-import { Box, Button, Rating, TextField, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
-import { signOut } from "firebase/auth";
 import React, { useRef } from "react";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import auth from "../../../firebase.init";
+import { toast } from "react-toastify";
+import {
+  Box,
+  Button,
+  Rating,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const AddReview = () => {
-  const [ratingValue, setRatingValue] = useState(0);
-
-  // getting user info
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-
-  // user input
+  const [ratingValue, setRatingValue] = useState(0);
   const reviewRef = useRef("");
 
-  // posting new review
   const handleSubmitReview = (event) => {
     event.preventDefault();
     const review = {
@@ -49,6 +47,7 @@ const AddReview = () => {
       })
       .catch((error) => toast.error(error.message));
   };
+
   return (
     <Box>
       <form onSubmit={handleSubmitReview}>
@@ -71,7 +70,9 @@ const AddReview = () => {
             required
           />
           <Box>
-            <Typography component="legend" gutterBottom>Stars</Typography>
+            <Typography component="legend" gutterBottom>
+              Stars
+            </Typography>
             <Rating
               name="simple-controlled"
               value={ratingValue}

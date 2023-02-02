@@ -1,19 +1,14 @@
 import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../firebase.init";
 
 const CheckoutForm = ({ order }) => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
-
-  const [user] = useAuthState(auth);
 
   const { quantity, per_unit_price, email, _id } = order;
   const price = quantity * per_unit_price;
@@ -66,7 +61,7 @@ const CheckoutForm = ({ order }) => {
     }
 
     // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });

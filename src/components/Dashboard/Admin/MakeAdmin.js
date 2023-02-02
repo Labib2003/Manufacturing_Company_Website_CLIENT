@@ -1,19 +1,19 @@
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import auth from "../../../firebase.init";
 import FailedToFetch from "../../shared/FailedToFetch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import UserRow from "./UserRow";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 const MakeAdmin = () => {
-  const navigate = useNavigate();
-  const [user] = useAuthState(auth);
-
   const {
     isLoading,
     error,
@@ -36,6 +36,7 @@ const MakeAdmin = () => {
   if (error) {
     return <FailedToFetch />;
   }
+
   return (
     <Box>
       <Typography variant="h4" color="primary" gutterBottom>

@@ -1,18 +1,19 @@
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
-import auth from "../../../firebase.init";
 import FailedToFetch from "../../shared/FailedToFetch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import AllOrdersRow from "./AllOrdersRow";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 const ManageAllOrders = () => {
-  const navigate = useNavigate();
-  const [user] = useAuthState(auth);
-
   const {
     isLoading,
     error,

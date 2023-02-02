@@ -1,4 +1,7 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -6,9 +9,6 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ tool }) => {
   // props

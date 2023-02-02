@@ -1,13 +1,19 @@
-import { Button, Divider, Stack, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useEffect, useRef } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../firebase.init";
 import FailedToFetch from "../components/shared/FailedToFetch";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
+import {
+  Box,
+  Button,
+  Divider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const Purchase = () => {
   // getting the id from url

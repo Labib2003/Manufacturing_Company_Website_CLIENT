@@ -1,17 +1,11 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
-import { success } from "daisyui/src/colors";
-import { signOut } from "firebase/auth";
 import React, { useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import auth from "../../firebase.init";
+import { toast } from "react-toastify";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 
 const MyProfile = () => {
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-
   const phoneRef = useRef(0);
   const addressRef = useRef("");
 

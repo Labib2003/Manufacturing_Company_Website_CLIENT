@@ -1,13 +1,8 @@
-import { Button, TableCell, TableRow, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Button, TableCell, TableRow, Typography } from "@mui/material";
 
 const UserRow = ({ user, index, refetch }) => {
-  const navigate = useNavigate();
-
   const makeAdmin = (email) => {
     fetch(
       `https://manufacturing-company-website-server.vercel.app/api/v1/users/admin/${email}`,
@@ -27,6 +22,7 @@ const UserRow = ({ user, index, refetch }) => {
       })
       .catch((error) => toast.error(error.message));
   };
+
   return (
     <TableRow>
       <TableCell>{index + 1}</TableCell>

@@ -1,23 +1,13 @@
-import {
-  Button,
-  Card,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  Typography,
-} from "@mui/material";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
 import { useQuery } from "react-query";
-import { Link, Outlet } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
+import { Link, Outlet } from "react-router-dom";
 import FailedToFetch from "../components/shared/FailedToFetch";
 import LoadingSpinner from "../components/shared/LoadingSpinner";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
-import { Box, Stack } from "@mui/system";
-import { Container } from "postcss";
+import { Box, Card, Drawer, List, ListItem } from "@mui/material";
 import MaterialLink from "@mui/material/Link";
 
 const Dashboard = () => {
@@ -46,6 +36,7 @@ const Dashboard = () => {
   if (error) {
     return <FailedToFetch></FailedToFetch>;
   }
+
   return (
     <Box>
       <Drawer open={drawerOpen} onClick={() => setDrawerOpen(!drawerOpen)}>
@@ -101,7 +92,7 @@ const Dashboard = () => {
         sx={{ marginBottom: 2, fontSize: "2rem" }}
         onClick={() => setDrawerOpen(!drawerOpen)}
       />
-      <Card sx={{padding: 4}}>
+      <Card sx={{ padding: 4 }}>
         <Outlet />
       </Card>
     </Box>

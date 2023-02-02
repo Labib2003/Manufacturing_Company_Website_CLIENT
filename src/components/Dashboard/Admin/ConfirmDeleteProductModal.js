@@ -1,16 +1,17 @@
-import { Backdrop, Box, Button, Fade, Modal, Stack, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import auth from "../../../firebase.init";
+import {
+  Backdrop,
+  Box,
+  Button,
+  Fade,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
-  const navigate = useNavigate();
-  const { _id, name } = product;
-
-  const [user] = useAuthState(auth);
+  const { _id } = product;
 
   const style = {
     position: "absolute",
@@ -43,7 +44,7 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
       })
       .catch((error) => toast.error(error.message));
   };
-  
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"

@@ -1,10 +1,9 @@
 import React from 'react';
+import SectionTitle from './SectionTitle';
 
 const FailedToFetch = () => {
     return (
-        <div className='grid h-screen place-items-center text-xl font-semibold'>
-            <p>Server did not respond. Please check your internet or try later.</p>
-        </div>
+        <SectionTitle>Server did not respond. Please check your internet connection or try again later.</SectionTitle>
     );
 };
 

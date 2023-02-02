@@ -1,7 +1,6 @@
-import { Button, TableCell, TableRow } from "@mui/material";
-import { Stack } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, Stack, TableCell, TableRow } from "@mui/material";
 
 const OrdersRow = ({ order, index, setOrder }) => {
   const { product_name, quantity, per_unit_price, transactionId, _id } = order;

@@ -1,10 +1,18 @@
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import FailedToFetch from "../../shared/FailedToFetch";
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import ConfirmDeleteProductModal from "./ConfirmDeleteProductModal";
 import ProductRow from "./ProductRow";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 const ManageProducts = () => {
   const [product, setProduct] = useState(null);

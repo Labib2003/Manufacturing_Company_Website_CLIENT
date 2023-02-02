@@ -1,20 +1,22 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
-import HandymanIcon from "@mui/icons-material/Handyman";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import auth from "../../firebase.init";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
 import useToken from "../../hooks/useToken";
+import HandymanIcon from "@mui/icons-material/Handyman";
+import MenuIcon from "@mui/icons-material/Menu";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 
 const pages = [
   { title: "Home", link: "/" },
@@ -23,13 +25,19 @@ const pages = [
 ];
 
 function Navbar() {
-  const [signInWithGoogle, googleUser, googleLoading, googleError] =
-    useSignInWithGoogle(auth);
+  const [signInWithGoogle, googleUser] = useSignInWithGoogle(auth);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [user] = useAuthState(auth);
   const [token] = useToken(googleUser);
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  useEffect(() => {
+    if (token) {
+      navigate(from, { replace: true });
+    }
+  }, [token, from, navigate]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

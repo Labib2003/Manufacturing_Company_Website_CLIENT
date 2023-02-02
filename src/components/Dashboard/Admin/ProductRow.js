@@ -1,5 +1,5 @@
-import { Button, TableCell, TableRow } from "@mui/material";
 import React from "react";
+import { Button, TableCell, TableRow } from "@mui/material";
 
 const ProductRow = ({ product, index, setProduct }) => {
   const { name, available_quantity, per_unit_price } = product;

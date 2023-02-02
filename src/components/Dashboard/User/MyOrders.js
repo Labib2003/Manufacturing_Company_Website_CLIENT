@@ -1,5 +1,6 @@
 import {
   Box,
+  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -56,7 +57,7 @@ const MyOrders = () => {
         <Typography variant="h4" color="primary">
           Your orders
         </Typography>
-        <TableContainer component="paper">
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
@@ -68,7 +69,7 @@ const MyOrders = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.data.map((order, index) => (
+            {orders?.data?.map((order, index) => (
               <OrdersRow
                 key={order._id}
                 order={order}
@@ -77,7 +78,7 @@ const MyOrders = () => {
               ></OrdersRow>
             ))}
           </TableBody>
-        </TableContainer>
+        </Table>
         {order && (
           <DeleteConfirmModal
             order={order}

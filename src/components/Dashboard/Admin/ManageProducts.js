@@ -7,7 +7,7 @@ import ConfirmDeleteProductModal from "./ConfirmDeleteProductModal";
 import ProductRow from "./ProductRow";
 
 const ManageProducts = () => {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(null);
 
   const {
     isLoading,

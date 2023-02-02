@@ -12,8 +12,9 @@ import HandymanIcon from "@mui/icons-material/Handyman";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
+import useToken from "../../hooks/useToken";
 
 const pages = [
   { title: "Home", link: "/" },
@@ -22,8 +23,13 @@ const pages = [
 ];
 
 function Navbar() {
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [user] = useAuthState(auth);
+  const [token] = useToken(googleUser);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -139,8 +145,11 @@ function Navbar() {
             </Box>
           ) : (
             <Box>
-              <Button sx={{ my: 2, color: "white", display: "block" }}>
-                <Link to="/login">Login</Link>
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                onClick={() => signInWithGoogle()}
+              >
+                Login
               </Button>
             </Box>
           )}

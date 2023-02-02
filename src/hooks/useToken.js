@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 const useToken = (user) => {
   const [token, setToken] = useState("");
   const email = user?.user?.email;
-  const currentUser = {
-    email: email,
-  };
+
   useEffect(() => {
+    const currentUser = {
+      email: email,
+    };
     if (user) {
       fetch(
         `https://manufacturing-company-website-server.vercel.app/api/v1/users/${email}`,
@@ -25,7 +26,7 @@ const useToken = (user) => {
           setToken(accessToken);
         });
     }
-  }, [user]);
+  }, [user, email]);
   return [token, setToken];
 };
 

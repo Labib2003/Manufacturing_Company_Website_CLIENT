@@ -18,13 +18,15 @@ const OrdersRow = ({ order, index, setOrder }) => {
           <p className="text-lime-500">TransactionId: {transactionId}</p>
         ) : (
           <Stack direction="row" justifyContent="space-around">
-            <Button variant="contained" color="info" size="large">
+            <Button variant="contained" color="info">
               <Link to={`/dashboard/payment/${_id}`}>Pay</Link>
             </Button>
-            <Button variant="contained" color="warning" size="large">
-              <label htmlFor="deleteModal" onClick={() => setOrder(order)}>
-                Cancel
-              </label>
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={() => setOrder(order)}
+            >
+              Cancel
             </Button>
           </Stack>
         )}

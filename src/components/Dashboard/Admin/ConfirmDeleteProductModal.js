@@ -1,3 +1,4 @@
+import { Backdrop, Box, Button, Fade, Modal, Stack, Typography } from "@mui/material";
 import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,6 +11,18 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
   const { _id, name } = product;
 
   const [user] = useAuthState(auth);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "black",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const handleDelete = (id) => {
     setProduct(null);
@@ -30,26 +43,42 @@ const ConfirmDeleteProductModal = ({ product, refetch, setProduct }) => {
       })
       .catch((error) => toast.error(error.message));
   };
-
+  
   return (
-    <div>
-      <input type="checkbox" id="delete-product" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box relative">
-          <h3 className="text-lg font-bold mb-10">
-            Are you sure you want to delete {name}?
-          </h3>
-          <div className="flex justify-around">
-            <button className="btn btn-error" onClick={() => handleDelete(_id)}>
-              Delete
-            </button>
-            <label htmlFor="delete-product" className="btn btn-success">
-              No
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={product}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={product}>
+        <Box sx={style}>
+          <Typography id="transition-modal-title" variant="h6">
+            Are you sure you want to remove {product.name}?
+          </Typography>
+          <Stack direction="row" justifyContent="space-between">
+            <Button
+              variant="contained"
+              onClick={() => handleDelete(_id)}
+              color="warning"
+            >
+              Confirm
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => setProduct(null)}
+              color="info"
+            >
+              Cancel
+            </Button>
+          </Stack>
+        </Box>
+      </Fade>
+    </Modal>
   );
 };
 

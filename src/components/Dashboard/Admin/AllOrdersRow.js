@@ -15,9 +15,9 @@ const AllOrdersRow = ({ order, index, refetch }) => {
 
   const handleShipping = (id) => {
     fetch(
-      `https://manufacturing-company-website-server.vercel.app/api/v1/order/ship/${id}`,
+      `https://manufacturing-company-website-server.vercel.app/api/v1/orders/ship/${id}`,
       {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -26,12 +26,6 @@ const AllOrdersRow = ({ order, index, refetch }) => {
       }
     )
       .then((res) => {
-        /* if (res.status !== 200) {
-          signOut(auth);
-          localStorage.removeItem("accessToken");
-          navigate("/login");
-          toast.error(`Error ${res.status}`);
-        } */
         toast.success("Order is on the way to the customer.");
         return res.json();
       })

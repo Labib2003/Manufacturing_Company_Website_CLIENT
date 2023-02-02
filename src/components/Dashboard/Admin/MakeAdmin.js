@@ -51,7 +51,7 @@ const MakeAdmin = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.data.map((user, index) => (
+          {users?.data?.map((user, index) => (
             <UserRow
               key={user._id}
               user={user}

@@ -1,8 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
-import Login from "./components/pages/Login/Login";
-import Register from "./components/pages/Login/Register";
 import Purchase from "./pages/Purchase";
 import Footer from "./components/shared/Footer";
 import Navbar from "./components/shared/Navbar";
@@ -31,8 +29,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route
             path="/tools/:id"
             element={

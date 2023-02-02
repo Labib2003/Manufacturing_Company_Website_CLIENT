@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from "@mui/material";
+import { Button, TableCell, TableRow } from "@mui/material";
 import React from "react";
 
 const ProductRow = ({ product, index, setProduct }) => {
@@ -11,13 +11,13 @@ const ProductRow = ({ product, index, setProduct }) => {
       <TableCell>{available_quantity}</TableCell>
       <TableCell>{per_unit_price}</TableCell>
       <TableCell>
-        <label
+        <Button
+          variant="contained"
+          color="warning"
           onClick={() => setProduct(product)}
-          htmlFor="delete-product"
-          className="btn btn-warning modal-button"
         >
           Delete
-        </label>
+        </Button>
       </TableCell>
     </TableRow>
   );

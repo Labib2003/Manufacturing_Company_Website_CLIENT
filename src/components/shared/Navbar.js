@@ -155,7 +155,10 @@ function Navbar() {
             <Box>
               <Button
                 sx={{ my: 2, color: "white", display: "block" }}
-                onClick={() => signInWithGoogle()}
+                onClick={async () => {
+                  await signInWithGoogle();
+                  window.location.reload();
+                }}
               >
                 Login
               </Button>
